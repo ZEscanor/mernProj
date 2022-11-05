@@ -14,3 +14,14 @@ export const getPosts = () =>async (dispatch) => {
 
 } // async data so we use redux thunk
   // a function returning another function
+
+
+  export const createPost = (post) => async (dispatch) => {
+    try{
+      const {data} = await api.createPost(post);
+      dispatch({type: "CREATE", payload: data });
+    }
+    catch(error){
+       console.log(error);
+    }
+  }

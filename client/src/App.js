@@ -13,12 +13,14 @@ import useStyles from './styles';
 
 const App = () => {
   const [currentId, setCurrentId] = useState(null);
-  const classes = useStyles();
+  
   const dispatch = useDispatch(); // dispatch an action
+  const classes = useStyles();
 
   useEffect(()=>{
   dispatch(getPosts());
   },[currentId,dispatch])
+  
   return (
     <Container maxidth ='lg'>
       <AppBar className={classes.appBar} position="static" color="inherit">

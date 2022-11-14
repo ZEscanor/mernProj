@@ -13,13 +13,13 @@ const Form = ({currentId, setCurrentId}) => {
     selectedFile: ''
   })
   const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
-              
+  const dispatch = useDispatch();   
   const classes = useStyles();
-  const dispatch = useDispatch();
+  
 
   useEffect(()=>{
-  if(post) setPostData(post);
-}, [post])
+  if(post){setPostData(post)}
+}, [currentId])
 
 
 const clear = () => {
@@ -57,7 +57,7 @@ const clear = () => {
       <TextField name="message" variant='outlined' label="Message" fullWidth
        value={postData.message} onChange={(e)=> setPostData({...postData, message: e.target.value})}/>
       <TextField name="tags" variant='outlined' label="Tags" fullWidth
-       value={postData.tags} onChange={(e)=> setPostData({...postData, tags: e.target.value})}/>
+       value={postData.tags} onChange={(e)=> setPostData({...postData, tags: e.target.value.split(",")})}/>
       <div className={classes.fileInput}>
           <FileBase type="file" multiple={false}
           onDone ={({base64}) => setPostData({...postData, selectedFile:base64})}

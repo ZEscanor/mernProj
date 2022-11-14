@@ -7,13 +7,13 @@ import moment from "moment";
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 
-import { deletePost } from '../../../actions/actionPost';
+import { deletePost, likePost } from '../../../actions/actionPost';
 
  
 const Post = ({post, setCurrentId}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  console.log(post)
+  //console.log(post)
   return (
     <Card className={classes.card}>
      <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
@@ -34,13 +34,12 @@ const Post = ({post, setCurrentId}) => {
      </div>
      <Typography className={classes.title} variant='h5'>{post.title}</Typography>
      <CardContent>
-     <Typography variant='h5'>{post.message}</Typography>
+     <Typography variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
      </CardContent>
      <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={()=>{}}>
+        <Button size="small" color="primary" onClick={()=>dispatch(likePost(post._id))}>
            <ThumbUpAltIcon fontSize='small'/>
-           Like
-           {post.likeCount}
+            {` Like ${post.likeCount}`}
         </Button>
         <Button size="small" color="primary" onClick={()=>dispatch(deletePost(post._id))}>
            <DeleteIcon fontSize='small'/>

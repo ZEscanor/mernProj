@@ -10,6 +10,7 @@ router.delete('/:id',deletePost);
 router.patch('/:id/likePost', likePost);
 
 
+
 // get request method the has a request and sends a response
 
 //localhost:5000/posts

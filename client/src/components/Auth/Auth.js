@@ -7,20 +7,38 @@ import { useDispatch } from 'react-redux';
 import useStyles from './styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Input from './input';
+import {signin,signup} from "../../actions/authActions";
+
+const initalState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password:'',
+  confirmPassword:''
+}
 
 const Auth = () => {
     const state = null;
     const classes = useStyles();
     const [isSigned, setIsSigned] = useState(true);
     const [showpass, SetShowPass] = useState(false);
+    const [formData,setFormData] = useState(initalState);
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData,"formdata")
 
+        if(isSigned){
+          dispatch(signup(formData,history))
+        }
+        else{
+          dispatch(signin(formData,history))
+        }
     };
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+     setFormData({...formData, [e.target.name]:e.target.value})
     };
     const handleShowPassword = () => {
         SetShowPass((prevShowPass) => !prevShowPass)
@@ -33,20 +51,21 @@ const Auth = () => {
     };
     const googleSuccess = async (res) => {
        const decoded = jwt_decode(res.credential)
-       console.log(decoded)// everything under name,picture, email
+       console.log("decoded",decoded)// everything under name,picture, email
        // we need jwt_decode because intial credential doesnt return info right away
        const{name,picture,sub} = decoded;
-       console.log(name,picture,sub)
+       //console.log(name,picture,sub)
        const user = {
         _id: sub,
         _type:'user',
-        userName: name,
+        name: name,
         image: picture
        }
+       const token = res?.credential;
 
        console.log(user._id)
        try{
-       dispatch({type:"AUTH", data: user});
+       dispatch({type:"AUTH", data: {user, token}});
        history.push('/');
        }
        catch(error){
@@ -74,7 +93,7 @@ const Auth = () => {
                     isSigned && (
                         <>
                         <Input name='firstName' label= "First Name" handleChange={handleChange} autoFocus half/>
-                        <Input name='firstName' label= "First Name" handleChange={handleChange} half/>
+                        <Input name='lastName' label= "Last Name" handleChange={handleChange} half/>
                         
                         </>
                     )
@@ -87,7 +106,8 @@ const Auth = () => {
 
 
              </Grid>
-             <Button type="submit" fullWidth variant="contained" color='primary' className={classes.submit}> {isSigned ? "Sign Up" : "Sign In"}</Button>
+             <Button type="submit" fullWidth variant="contained" color='primary' className={classes.submit}> 
+             {isSigned ? "Sign Up" : "Sign In"}</Button>
              <Grid container justifyContent='flex-end'>
                 <Grid item>
                   <Button onClick={switchMode}>

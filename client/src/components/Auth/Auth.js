@@ -55,7 +55,7 @@ const Auth = () => {
        // we need jwt_decode because intial credential doesnt return info right away
        const{name,picture,sub} = decoded;
        //console.log(name,picture,sub)
-       const user = {
+       const result = {
         _id: sub,
         _type:'user',
         name: name,
@@ -63,9 +63,9 @@ const Auth = () => {
        }
        const token = res?.credential;
 
-       console.log(user._id)
+       //console.log(user._id)
        try{
-       dispatch({type:"AUTH", data: {user, token}});
+       dispatch({type:"AUTH", data: {result, token}});
        history.push('/');
        }
        catch(error){

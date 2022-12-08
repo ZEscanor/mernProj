@@ -4,6 +4,7 @@ import {Link,useHistory,useLocation} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import useStyles from './styles';
 import memories from "../../images/memories.png";
+import decode from "jwt-decode";
 const Navbar = () => {
   
     const classes = useStyles();
@@ -23,15 +24,21 @@ const Navbar = () => {
     }
     else if(user?.result){
        vehicle = user.result
-    }
+    } // fixes oauth undefined
   
-    console.log(vehicle.name)
+    console.log(user)
     
     
     useEffect(()=>{
        const token = user?.token
 
+      if(token){
+       const decodedToken = decode(token)
 
+       if(decodedToken.exp * 1000 < new Date().getTime()){
+         logout();
+       };
+      }
        setUser(JSON.parse(localStorage.getItem('profile')))
     },[loaction])
   return (
@@ -46,8 +53,8 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
          {user ? (
              <div className={classes.profile}>
-              <Avatar className={classes.purple} alt={vehicle.name } src={user.imageUrl}> {vehicle.name.charAt(0)}</Avatar>
-              <Typography className={classes.userName} variant="h6">{user.name}</Typography>
+              <Avatar className={classes.purple} alt={vehicle.name } src={vehicle.imageUrl}> {vehicle.name.charAt(0)}</Avatar>
+              <Typography className={classes.userName} variant="h6">{vehicle.name}</Typography>
               <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>
              </div>
             

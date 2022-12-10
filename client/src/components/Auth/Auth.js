@@ -51,7 +51,7 @@ const Auth = () => {
     };
     const googleSuccess = async (res) => {
        const decoded = jwt_decode(res.credential)
-       console.log("decoded",decoded)// everything under name,picture, email
+       //console.log("decoded",decoded)// everything under name,picture, email
        // we need jwt_decode because intial credential doesnt return info right away
        const{name,picture,sub} = decoded;
        //console.log(name,picture,sub)

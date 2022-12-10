@@ -43,7 +43,7 @@ const clear = () => {
    }
    clear();
   }
-  console.log(!user,"this user") 
+  //console.log(!user,"this user") 
   if(!user?.result?.name ){
    if(!user?.user?.name)
     return(

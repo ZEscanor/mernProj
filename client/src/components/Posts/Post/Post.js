@@ -22,7 +22,7 @@ const Post = ({post, setCurrentId}) => {
   
   const user = JSON.parse(localStorage.getItem("profile"))
 
-  console.log(user)
+  //console.log(!user)
 
   //console.log(post)
 

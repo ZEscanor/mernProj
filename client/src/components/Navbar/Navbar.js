@@ -11,7 +11,7 @@ const Navbar = () => {
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')))
     const dispatch = useDispatch();
     const history = useHistory();
-    const loaction = useLocation();
+    const location = useLocation();
     let vehicle = {}
     const logout = () => {
      dispatch({type:"LOGOUT"});
@@ -26,7 +26,7 @@ const Navbar = () => {
        vehicle = user.result
     } // fixes oauth undefined
   
-    console.log(user)
+    //console.log(user)
     
     
     useEffect(()=>{
@@ -40,7 +40,7 @@ const Navbar = () => {
        };
       }
        setUser(JSON.parse(localStorage.getItem('profile')))
-    },[loaction])
+    },[location])
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>

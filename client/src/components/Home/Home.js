@@ -26,7 +26,7 @@ const Home = () => {
     const classes = useStyles();
     const [search, setSearch] = useState('')
     const [tags,setTags] = useState([])
-  
+  //console.log(query.get('page') || 1, "hello")
     // useEffect(()=>{
     // dispatch(getPosts());
     // },[currentId,dispatch])

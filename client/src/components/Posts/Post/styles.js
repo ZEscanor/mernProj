@@ -47,6 +47,11 @@ export default makeStyles({
   cardActions: {
     padding: '0 16px 8px 16px',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    color: "red",
+    fontSize: "8px",
+    backgroundColor: "gray",
+    fontWeight: "bolder",
+  
   },
 });

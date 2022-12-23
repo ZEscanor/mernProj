@@ -13,7 +13,8 @@ const Form = ({currentId, setCurrentId}) => {
      title: '', message: '', tags: '',
     selectedFile: ''
   })
-  const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
+  
+  const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null));
   const dispatch = useDispatch();   
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"))
@@ -60,7 +61,7 @@ const clear = () => {
 
   
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={6}>
     <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
       <Typography variant='h6'>
         {currentId ? "Editing" : "Creating"} A Memory

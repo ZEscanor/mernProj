@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
 import { getPost, getPostsBySearch } from '../../actions/actionPost';
+import CommentSection from './CommentSection';
 import useStyles from "./styles";
 
 const PostDetails = () => {
@@ -34,8 +35,8 @@ if(isLoading){
 }
 
 const recommendedPosts = posts.filter(({_id}) => _id !== post._id)
-console.log(recommendedPosts,  "rec")
-console.log(posts, post,  "post")
+//console.log(recommendedPosts,  "rec")
+//console.log(posts, post,  "post")
   return (
   <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
     <div className={classes.card}>
@@ -48,7 +49,7 @@ console.log(posts, post,  "post")
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
+          <CommentSection post={post}/>
           <Divider style={{ margin: '20px 0' }}  />
         </div>
         <div className={classes.imageSection}>

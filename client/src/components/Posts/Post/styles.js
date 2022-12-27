@@ -50,7 +50,7 @@ export default makeStyles({
     justifyContent: 'center',
     color: "red",
     fontSize: "8px",
-    backgroundColor: "gray",
+    backgroundColor: "whitesmoke",
     fontWeight: "bolder",
   
   },

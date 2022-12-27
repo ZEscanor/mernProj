@@ -36,6 +36,18 @@ export default makeStyles((theme) => ({
     mainContainer: {
       flexDirection: 'column-reverse'
     }
+  },
+  responsive: {
+    [theme.breakpoints.between(0,500)]: {
+      backgroundColor: "red",
+      width: "500px"
+    },
+    [theme.breakpoints.between(501,800)]: {
+      backgroundColor: "black",
+    },
+    [theme.breakpoints.between(801,4000)]: {
+      backgroundColor: "purple",
+    }
   }
  
 }));

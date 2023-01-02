@@ -13,7 +13,7 @@ export default makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.down('sm')]: {
       flexWrap: 'wrap',
-      flexDirection: 'column',
+      flexDirection: 'column-reverse',
     },
   },
   section: {
@@ -26,6 +26,18 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
+    [theme.breakpoints.between(0,500)]: {
+      width: "200px",
+      height: "200px"
+        },
+    [theme.breakpoints.between(501,800)]: {
+      width: "350px",
+      height: "350px"
+    },
+    [theme.breakpoints.between(801,4000)]: {
+      width: "400px",
+      height: "400px"
+    }
   },
   recommendedPosts: {
     display: 'flex',

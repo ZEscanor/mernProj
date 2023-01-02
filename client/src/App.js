@@ -5,10 +5,12 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./components/Home/Home";
 import Auth from "./components/Auth/Auth";
 import PostDetails from "./components/PostDetails/PostDetails";
+import useStyles from "./styles.js";
 
 const App = () => {
+  const classes = useStyles();
   return (
-    <Container maxidth ='xl'>
+    <Container maxWidth ='xl' className={classes.responsive} >
       <Navbar/>
       <Switch>
         <Route path="/" exact component={()=><Redirect to="/posts"/>}/>

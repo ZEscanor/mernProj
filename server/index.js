@@ -27,4 +27,4 @@ mongoose.connect(process.env.CONNECTION_URL, {useNewUrlParser:true, useUnifiedTo
 .then(()=> app.listen(PORT,()=> console.log(`Server running on PORT: ${PORT}`))) 
 .catch((error)=> console.log(error.message));
 
-
+export default app;

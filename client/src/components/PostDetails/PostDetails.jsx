@@ -8,7 +8,7 @@ import CommentSection from './CommentSection';
 import useStyles from "./styles";
 
 const PostDetails = () => {
-  //viewpoint 446 turn width 500%
+ 
  const {post, posts, isLoading} = useSelector((state) => state.posts);
    // console.log("PostDetails")
 const dispatch = useDispatch();

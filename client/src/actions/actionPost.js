@@ -9,7 +9,7 @@ export const getPost = (id) => async (dispatch) => {
     dispatch({type: START_LOADING})
   const {data} = await api.fetchPost(id);
 
-  console.log(data)
+  //console.log(data)
   dispatch({type: FETCH_POST, payload:data}); // same as return
   dispatch({type: END_LOADING})
   } catch(error){
@@ -21,7 +21,7 @@ export const getPosts = (page) => async (dispatch) => {
       dispatch({type: START_LOADING})
     const {data} = await api.fetchPosts(page);
 
-    console.log(data)
+    //console.log(data)
     dispatch({type: FETCH_ALL, payload:data}); // same as return
     dispatch({type: END_LOADING})
     } catch(error){
@@ -37,7 +37,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
  try{
   dispatch({type: START_LOADING});
   const {data: {data}} = await api.fetchPostsBySearch(searchQuery)
-  console.log("data", data, {data})
+  //console.log("data", data, {data})
   dispatch({type: FETCH_BY_SEARCH, payload: data});
   dispatch({type: END_LOADING})
  }

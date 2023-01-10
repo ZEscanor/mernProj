@@ -45,6 +45,17 @@ export default makeStyles((theme) => ({
       flexDirection: 'column',
     },
   },
+  postCards:{
+    margin:'20px', 
+    cursor: "pointer", 
+    paddingLeft:"10px", 
+    paddingRight:"10px", 
+    width: "20%", 
+    boxShadow: "2px 1px 20px",
+    "&:hover" : {
+      opacity: ".6"
+    }
+  },
   loadingPaper: {
     display: 'flex',
     justifyContent: 'center',

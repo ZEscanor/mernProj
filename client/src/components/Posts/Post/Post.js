@@ -45,15 +45,8 @@ const Post = ({post, setCurrentId}) => {
  const openPost = () => history.push(`/posts/${post._id}`)
   return (
     <Card className={classes.card} raised elevation={6}>
-      {/* <ButtonBase
-      onClick={openPost}
-      component="span"
-      name="test"
-      className={classes.cardActions}
-      >
-         Click For More
-        </ButtonBase> */}
      <CardMedia className={classes.media} image={post.selectedFile } title={post.title} onClick={openPost}/>
+     
      <div className={classes.overlay}>
       <Typography variant='h6'>{post.name}</Typography>
       <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography> 

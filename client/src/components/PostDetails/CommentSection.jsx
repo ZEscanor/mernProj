@@ -1,7 +1,8 @@
 import React, {useState, useRef} from "react";
 import {Typography, TextField, Button} from "@material-ui/core";
 import {useDispatch} from "react-redux";
-import {commentPost} from "../../actions/actionPost";
+import {commentPost,deleteComments} from "../../actions/actionPost";
+
 import { Redirect} from "react-router-dom";
 
 import useStyles from "./styles";
@@ -18,19 +19,31 @@ const CommentSection = ({post}) => {
     
     const handleClick = async () => {
      const finComment = `${user.result.name}: ${comment}`;
-     console.log(post)
+     //console.log(post)
     const newComments = await dispatch(commentPost(finComment, post._id));
-    console.log(post)
-     console.log(newComments, "NEW COMMENT")
+    //console.log(post)
+     //console.log(newComments, "NEW COMMENT")
      
      setComments(newComments)
      setComment("")
       // set are comments to the new comments received from database
       // set textfield to empty string
-      commentsRef.current.scrollIntoView({behavior:"smooth"})
+      commentsRef.current.scrollIntoView({behavior:"smooth"}) 
+  }
+
+  const handleDel = async (val) => {
+
+    //console.log(comment2Delete,val, "hmm")
+    if(val === '' || null){
+      console.log("no data found")
+    }
+    else{
+      const newComments = await dispatch(deleteComments(val, post._id))
+      //console.log( newComments, "new comments")
+      setComments(newComments)
+    }
     
-  
-    
+   //console.log(itWork,"itWork")
   }
 
     return (
@@ -41,11 +54,18 @@ const CommentSection = ({post}) => {
                 Comments
              </Typography>
              {comments?.map((c,i)=>(
+                
                 <Typography key={i} gutterBottom variant="subtitle1">
+                    
                     <strong>  {c.split(': ')[0]}:</strong>
                      {c.split(':')[1]}
+                  {(user?.result?.name === c.split(': ')[0]) && (
+                     <Button style={{width:"20px", color:"red",position:"relative"}} onClick={function(){
+                  handleDel(c);
+                  }}>X</Button>)}
                 </Typography>
              ))}
+             
              <div ref={commentsRef} />
          </div>
          {user?.result?.name && (
@@ -54,7 +74,7 @@ const CommentSection = ({post}) => {
             Write a comment
            </Typography>
            <TextField fullWidth 
-           rows={4} 
+           minRows={4} 
            variant="outlined" 
            label="Comment" 
            multiline

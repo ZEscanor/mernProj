@@ -118,3 +118,22 @@ export const commentPost = async (req, res) => {
 
    res.json(updatedPost)
 }
+
+export const deleteComment = async (req,res) => {
+   //console.log(req)
+   const {id} = req.params;
+   const {value} = req.body
+   
+   const post = await PostMessage.findById(id);
+   const index = post.comments.indexOf(value)
+   post.comments.splice(index,1)
+   const hello2 = post.comments
+
+   const updatedPost = await PostMessage.findByIdAndUpdate(id,post, {new:true});
+
+  res.json(updatedPost)
+
+   
+
+
+}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPosts, getPost, getPostsBySearch ,createPost, updatePost, deletePost, likePost, commentPost } from '../controllers/posts.js'; 
+import { getPosts, getPost, getPostsBySearch ,createPost, updatePost, deletePost, likePost, commentPost, deleteComment } from '../controllers/posts.js'; 
 import auth from '../middleware/authMiddleware.js';
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.patch('/:id',auth,  updatePost);
 router.delete('/:id',auth,deletePost);
 router.patch('/:id/likePost',auth, likePost);
 router.post('/:id/commentPost',auth, commentPost);
+router.patch("/:id/deleteComment", auth, deleteComment);
 
 
 

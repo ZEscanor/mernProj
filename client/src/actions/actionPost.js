@@ -1,4 +1,4 @@
-import { FETCH_ALL,FETCH_POST,FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, COMMENT } from './constants';
+import { FETCH_ALL,FETCH_POST,FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, COMMENT, DELETECOM } from './constants';
 import * as api from '../api';
 
 
@@ -106,4 +106,18 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     catch(error){
       console.log(error)
     }
+  }
+
+  export const deleteComments = (value, id) => async (dispatch) => {
+    try{
+      console.log(value, "valuen", id)
+     const {data} = await api.deleteComment(value,id)
+     console.log(data)
+      dispatch({type: DELETECOM, payload: data});
+      return data.comments
+    }
+    catch(error){
+      console.log(error)
+    }
+
   }

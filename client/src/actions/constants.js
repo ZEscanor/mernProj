@@ -8,6 +8,9 @@ export const LIKE = "LIKE";
 export const COMMENT = "COMMENT";
 export const DELETECOM = "DELETECOM";
 
+export const GET_USERS = "GET_USERS";
+export const GET_USER = "GET_USER";
+
 
 export const START_LOADING = "START_LOADING";
 export const END_LOADING = "END_LOADING"

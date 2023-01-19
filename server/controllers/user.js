@@ -22,7 +22,7 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {
     const {id} = req.params
     try{
-        let thisUser = await User.find({email: id}) // or name or id etc.
+        let thisUser = await User.find({_id: id}) // or name or id etc.
         //await User.findById(id) 
         
         res.status(200).json(thisUser)

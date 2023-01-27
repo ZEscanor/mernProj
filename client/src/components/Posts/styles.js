@@ -5,6 +5,11 @@ export default makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  noPosts:{
+    textAlign: 'center',
+    fontSize: "15px",
+    fontWeight: "bold"
+  },
   smMargin: {
     margin: theme.spacing(1),
   },

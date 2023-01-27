@@ -10,13 +10,13 @@ const Posts = ({setCurrentId}) => {
   const classes = useStyles();
 
  // console.log(posts)
- if(!posts.length && !isLoading) return "No Posts"
+ if(!posts.length && !isLoading) return <div className={classes.noPosts} >No Posts match that search, Try Again</div>
   return (
    isLoading ? <CircularProgress/> : (
     <Grid className={classes.container} container alignItems="stretch" spacing={3}>
      {posts.map((post) =>(
-      <Grid key={post.id} item xs={12} sm={12} md={6} lg={3}> 
-           <Post post={post} setCurrentId={setCurrentId}/>
+      <Grid key={post._id} item xs={12} sm={12} md={6} lg={3}> 
+           <Post  post={post} setCurrentId={setCurrentId}/>
       </Grid>
      ))}
     </Grid>

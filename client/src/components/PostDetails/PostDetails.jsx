@@ -67,10 +67,11 @@ const recommendedPosts = posts.filter(({_id}) => _id !== post._id)
            {recommendedPosts.map(({title,message,name,likes,selectedFile, _id}) => (
             <div className={classes.postCards} onClick={() => openPost(_id)} key={_id}>
              <Typography gutterBottom variant='h6'> {title} </Typography>
+             <img className={classes.recommendedImg} src={selectedFile}/>
              <Typography gutterBottom variant='subtitle2'> {name} </Typography>
              <Typography gutterBottom variant='subtitle2'> {message} </Typography>
-             <Typography gutterBottom variant='subtitle1'> Likes: {likes.length} </Typography>
-             <img src={selectedFile} width="75%" height="150px"/>
+             <Typography gutterBottom variant='subtitle1' > Likes: {likes.length} </Typography>
+             
              
             </div>
            ))}

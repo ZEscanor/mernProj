@@ -50,11 +50,17 @@ export default makeStyles((theme) => ({
     cursor: "pointer", 
     paddingLeft:"10px", 
     paddingRight:"10px", 
-    width: "20%", 
+    width: "20%",
     boxShadow: "2px 1px 20px",
+    backgroundColor: "#e8e8e8",
     "&:hover" : {
       opacity: ".6"
-    }
+    },
+    [theme.breakpoints.between(0,795)]: {
+      width: "150px",
+      color:"red"
+      
+        },
   },
   loadingPaper: {
     display: 'flex',
@@ -73,4 +79,9 @@ export default makeStyles((theme) => ({
     overflowY: 'auto',
     marginRight: '30px',
   },
+  recommendedImg: {
+    width: "75%",
+    height:"100px"
+    
+  }
 }));

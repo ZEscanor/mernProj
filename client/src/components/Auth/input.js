@@ -1,12 +1,24 @@
 import React from 'react';
 import { TextField, Grid, InputAdornment, IconButton } from '@material-ui/core';
 
+
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const input = ({name, handleChange, label,half, autoFocus, type, handleShowPassword}) => {
+  
+
+ 
+
+
+  //console.log(errors)
+  const onSubmit = (data) => console.log("onSubmit", data);
+ //console.log(register(onChange))
+  
+
   return (
     <Grid item xs={12} sm={half ? 6 :12}>
+      
       <TextField
       name = {name}
       onChange = {handleChange}
@@ -26,7 +38,7 @@ const input = ({name, handleChange, label,half, autoFocus, type, handleShowPassw
       ),
       }: null}  
     
-      />
+       />
 
       
     </Grid>

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
+import { Container, Grow, Grid, Paper, AppBar, TextField, Button, Tooltip } from '@material-ui/core';
+import {ClickAwayListener} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import ChipInput from "material-ui-chip-input";
@@ -26,6 +27,15 @@ const Home = () => {
     const classes = useStyles();
     const [search, setSearch] = useState('')
     const [tags,setTags] = useState([])
+    const [open, setOpen] = useState(false);
+
+    const handleTooltipClose = () => {
+      setOpen(false);
+    };
+  
+    const handleTooltipOpen = () => {
+      setOpen(true);
+    };
   //console.log(query.get('page') || 1, "hello")
     // useEffect(()=>{
     // dispatch(getPosts());
@@ -56,6 +66,7 @@ const Home = () => {
              <Posts setCurrentId = {setCurrentId} />
            </Grid>
            <Grid item xs={12} sm={6} md={3}>
+            
             <AppBar className={classes.appBarSearch} position="static" color='inherit'>
               <TextField 
               
@@ -68,14 +79,25 @@ const Home = () => {
               value={search} 
               onChange={(e)=>setSearch(e.target.value)}
               />
+              <ClickAwayListener onClickAway={handleTooltipClose}>
+               <Tooltip  onClose={handleTooltipClose}
+                open={open}
+                disableFocusListener
+                disableHoverListener
+                disableTouchListener 
+                title="Input a Tag and press Enter before submitting"
+                placement='right'>
               <ChipInput
               style={{margin: '10px 0'}}
               value={tags}
+              onClick={handleTooltipOpen}
               onAdd = {handleAdd}
               onDelete = {handleDelete}
               label = "Search Tags"
               variant= "outlined"
               />
+              </Tooltip>
+              </ClickAwayListener>
               <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary"> Search  </Button>
             </AppBar>
               <Form currentId={currentId} setCurrentId={setCurrentId}/>

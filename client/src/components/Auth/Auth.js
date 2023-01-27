@@ -9,10 +9,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import * as yup from "yup";
 import Input from './input';
 import Error from './error';
-import update from 'immutability-helper';
-
 import {signin,signup} from "../../actions/authActions";
-import { updatePost } from '../../api';
+
 
 const initalState = {
   firstName: '',
@@ -24,8 +22,14 @@ const initalState = {
 
 const schema = yup.object().shape({
 
-  firstName: yup.string().max(10).required(),
-  lastName: yup.string().max(10).required(),
+  firstName: yup.string().max(10, "First Name should be no longer than 10 characters").required().matches(
+    /^([A-Za-z]*)$/gi,
+        'First Name can only contain alphanumeric letters.'
+    ),
+  lastName: yup.string().max(10, "Last Name should be no longer than 10 characters").required().matches(
+    /^([A-Za-z]*)$/gi,
+        'Last Name can only contain alphanumeric letters.'
+    ),
   email: yup.string().email().required(),
   password:yup.string("No password provided!!").min(6,"Minimum of 6 characters"),
   confirmPassword:yup.string().oneOf([yup.ref('password'),null], 'Passwords Must match')
@@ -35,40 +39,22 @@ const schema = yup.object().shape({
 const Auth = () => {
     const state = null;
     const classes = useStyles();
-    const [isSigned, setIsSigned] = useState(true);
+    const [isSigned, setIsSigned] = useState(false);
     const [showpass, SetShowPass] = useState(false);
     const [formData,setFormData] = useState(initalState);
-    const [submitted, setSubmitted]= useState(false)
-    
     let errArray = []
     const [errors,setErrors] = useState([])
     const dispatch = useDispatch();
     const history = useHistory();
-    // let schema = yup.object().shape({
-
-    //   firstName: yup.string().max(10).required(),
-    //   lastName: yup.string().max(10).required(),
-    //   email: yup.string().email().required(),
-    //   password:yup.string("No password provided!!").min(6,"Minimum of 6 characters"),
-    //   confirmPassword:yup.string().oneOf([yup.ref('password'),null], 'Passwords Must match')
-    
-    // })
-
-    // const { register, handleSubmit, errors } = useForm({
-    //   validationSchema: schema
-    // });
-   //console.log(register, "our big 3")
 
    const clear = () => {
    
     errArray = []
   }
-  useEffect(() => console.log("re-render because x changed:", errors), [errors])
+ // useEffect(() => console.log("re-render because x changed:", errors), [errors])
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmitted(!submitted)
         
-        //console.log(formData,"formdata")
         
 
         const isFormValid = await schema.isValid(formData, {
@@ -77,35 +63,34 @@ const Auth = () => {
 
         //console.log(isFormValid)
         if(isSigned){
-          // dispatch(signup(formData,history))
-         
            if(isFormValid){
           console.log("Form ok")
+          dispatch(signup(formData,history))
          
         }
         else{
+    
           clear()
+          
           schema.validate(formData, {abortEarly:false})
           .catch((err) => {
             
-             err.inner.map(( error) => {
-              console.log(errors, "error1")
-
-              const pathl = error.path
+       err.inner.map(( error) => {
+              //console.log(errors, "error1")
               const message = error.message 
               errArray.push(message)
 
 
               
             })
-            setErrors(errArray)
+            setErrors(errArray) // Use set here because setstate triggers a page reload giving our error check message
           })
-          console.log(errors, errArray, "UG")
+          //console.log(errors, errArray, "UG")
         }
       } 
      else{
-          console.log("we signing in")
-         // dispatch(signin(formData,history))
+          //console.log("we signing in")
+          dispatch(signin(formData,history))
         }
     };
 
@@ -125,7 +110,6 @@ const Auth = () => {
      
     };
 
-   
     const googleSuccess = async (res) => {
        const decoded = jwt_decode(res.credential)
        //console.log("decoded",decoded)// everything under name,picture, email
@@ -183,8 +167,8 @@ const Auth = () => {
 
 
              </Grid>
-             <Error error={errors}/>
-             <Button type="submit" fullWidth variant="contained" color='primary' className={classes.submit} > 
+             {isSigned && (<Error error={errors}/>)}
+             <Button type="submit" fullWidth variant="contained" color='primary' className={classes.submit}> 
              {isSigned ? "Sign Up" : "Sign In"}</Button>
              <Grid container justifyContent='flex-end'>
                 <Grid item>

@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
   heading: {
     color: 'rgba(0,183,255, 1)',
     textDecoration: 'none',
+    fontSize: "2.75rem"
   },
   image: {
     marginLeft: '15px',
@@ -26,9 +27,12 @@ export default makeStyles((theme) => ({
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
   },
   userName: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  logout:{
     display: 'flex',
     alignItems: 'center',
   },
@@ -39,5 +43,7 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    marginRight: "40px",
   },
+
 }));

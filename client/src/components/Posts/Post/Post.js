@@ -28,6 +28,9 @@ const Post = ({post, setCurrentId}) => {
 
   //console.log(post)
 
+ const name = post.name.split(",").join("")
+  
+// console.log(name)
   
   const Likes = () => {
    if (post?.likes?.length > 0) {
@@ -43,12 +46,16 @@ const Post = ({post, setCurrentId}) => {
  };
   
  const openPost = () => history.push(`/posts/${post._id}`)
+   
   return (
     <Card className={classes.card} raised elevation={6}>
-     <CardMedia className={classes.media} image={post.selectedFile } title={post.title} onClick={openPost}/>
+     <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png' } title={post.title} onClick={openPost}/>
      
      <div className={classes.overlay}>
-      <Typography variant='h6'>{post.name}</Typography>
+      <Typography variant='h6'>
+        
+        {name || post.name}
+        </Typography>
       <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography> 
      </div>
      {(user?.result?._id === post?.creator)  && (

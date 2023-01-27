@@ -54,7 +54,9 @@ const Navbar = () => {
          {user ? (
              <div className={classes.profile}>
               <Avatar className={classes.purple} alt={vehicle.name } src={vehicle.imageUrl}> {vehicle.name.charAt(0)}</Avatar>
-              <Typography className={classes.userName} variant="h6">{vehicle.name}</Typography>
+              {/* <Typography className={classes.userName} variant="h6">
+                {console.log(vehicle.name.split(",")[0])}
+                </Typography> */}
               <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>
              </div>
             

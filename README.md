@@ -1,8 +1,29 @@
 # A project which highlights the use of the MERN stack
 
 # This app allows user to create and store memories like a journal and share them with each other.
+ 
 
-   # Users will be able to:
+![Screenshot (26)](https://user-images.githubusercontent.com/69213231/219229034-bcf8c17f-b52d-4ca3-81a5-43092ec734c1.png)
+
+
+#To Begin Click the Login button and make an account, you will be directed to the login/signup page
+
+
+![Screenshot (27)](https://user-images.githubusercontent.com/69213231/219229468-62524c53-34fd-4bf1-98e1-51a9f50a5457.png)
+
+#Then like the first picture you will be able to make and search for posts by tag or name*
+
+#Additionally you can click the picture of the posts to see more details and leave a comment
+
+![Screenshot (28)](https://user-images.githubusercontent.com/69213231/219230098-e1cf7c17-ef63-4638-b538-9999de90d9ad.png)
+
+
+   
+   
+   
+   
+   
+   # Full list of features Users will be able to do:
     Create a new user account or Login using Google OAUTH
     Logout of the user account(Automatically logs out after 1hr)
     Create and upload posts to the database
@@ -19,31 +40,28 @@
 
 
     # # Features coming soon:
-       Lookup users by their profile name and if the user is logged in allow user to edit personal data (partially done on api)
+       Lookup users by their profile name and if the user is logged in allow user to edit personal data (partially done)
        Allow users to PM other users
-       Better Feed and a User ToolBar.
+       Admin Dashboard and commands
+      Seperate Time management and game component.
        
 
-
-      #Low prio 
-         Darkmode
-         ToolBar Help Messages
          
       
 
 
-# Relevant Endpoints Frontend =
-  /posts Home Page 
-  /auth Login Page
+# Relevant Endpoints Frontend 
+  https://memoriesmern.vercel.app//posts     ---Home Page <br/>
+  https://memoriesmern.vercel.app//auth           ---Login Page
 
 
 # Relevant Endpoint API
-   /posts Return all posts
-   /user return all users (hashed passwords for security and demo purposes)
-   /user/:id return specific user with specified id
+   Full API endpoint -- https://mern-proj-api.vercel.app/ <br/>
+   https://mern-proj-api.vercel.app/posts ----------- Return all posts <br/>
+  https://mern-proj-api.vercel.app/user ------return all users (hashed passwords for security and demo purposes)<br/>
+  https://mern-proj-api.vercel.app/user/:id ----  return specific user with specified id<br/>
 
   
-
-  Clicking The Top of A picture directs it to the specific post to comment
-  Editing and Deleting can only be done by the user who made the post (will incorporate admin later)
-  Liking a post only requires a person to be logged in
+  *Additional Notes*
+  Editing and Deleting can only be done by the user who made the post (later the admins will be able to delete as well )<br/>
+  Liking a post only requires a person to be logged in, you can only like a singular post 1 time

@@ -22,7 +22,9 @@ export default makeStyles((theme) => ({
     flex: 1,
   },
   imageSection: {
-    marginLeft: '20px',
+    borderRadius: '20px',
+    objectFit: 'cover',
+    width: '100%',
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
@@ -36,7 +38,7 @@ export default makeStyles((theme) => ({
     },
     [theme.breakpoints.between(801,4000)]: {
       width: "400px",
-      height: "400px"
+      height: "500px"
     }
   },
   recommendedPosts: {

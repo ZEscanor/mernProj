@@ -54,7 +54,7 @@ const recommendedPosts = posts.filter(({_id}) => _id !== post._id)
           <Divider style={{ margin: '20px 0' }}  />
         </div>
         <div className={classes.imageSection}>
-          <img className={classes.media} src={post.selectedFile} alt={post.title} />
+          <img className={classes.imageSection} src={post.selectedFile} alt={post.title} />
         </div>
       </div>
       {!!recommendedPosts.length && (

@@ -9,11 +9,13 @@ import User from "./components/User/User";
 import routeUndefined from "./components/404/routeUndefined";
 import useStyles from "./styles.js";
 
+
 const App = () => {
   const classes = useStyles();
   return (
     <Container maxWidth ='xl' className={classes.responsive} >
       <Navbar/>
+
       <Switch>
         <Route path="/" exact component={()=><Redirect to="/posts"/>}/>
         <Route path="/posts" exact component={Home}/>

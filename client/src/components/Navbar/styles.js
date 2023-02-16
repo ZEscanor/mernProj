@@ -12,7 +12,8 @@ export default makeStyles((theme) => ({
     padding: '10px 50px',
   },
   heading: {
-    color: 'rgba(0,183,255, 1)',
+    color: ' rgb(176,42,79)',
+    
     textDecoration: 'none',
     fontSize: "2.75rem"
   },
@@ -41,9 +42,12 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
   },
   purple: {
+    display: "flex",
+    justifyContent: "center" ,
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
     marginRight: "40px",
   },
+
 
 }));

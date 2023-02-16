@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux';
 import useStyles from './styles';
 import memories from "../../images/memories.png";
 import decode from "jwt-decode";
+import Dropdown from "../Dropdown/Dropdown"
 const Navbar = () => {
   
     const classes = useStyles();
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+    const [isOpen,setIsOpen] = useState(false)
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
@@ -28,6 +30,9 @@ const Navbar = () => {
   
     //console.log(user)
     
+    const handleDrop = () => {
+      setIsOpen(!isOpen)
+    }
     
     useEffect(()=>{
        const token = user?.token
@@ -42,21 +47,32 @@ const Navbar = () => {
        setUser(JSON.parse(localStorage.getItem('profile')))
     },[location])
   return (
+    <div >
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
   
 
-      <Typography component={Link} to='/' className={classes.heading} variant="h2" align="center">Memories
+      <Typography component={Link} to='/' className={classes.heading} variant="h2" align="center">LifeStyle
           <img className={classes.image} src={memories} alt="memories" height="60"/>
         </Typography>
       </div>
       <Toolbar className={classes.toolbar}>
          {user ? (
              <div className={classes.profile}>
-              <Avatar className={classes.purple} alt={vehicle.name } src={vehicle.imageUrl}> {vehicle.name.charAt(0)}</Avatar>
-              {/* <Typography className={classes.userName} variant="h6">
-                {console.log(vehicle.name.split(",")[0])}
-                </Typography> */}
+              
+
+
+              <Avatar className={classes.purple} alt={vehicle.name } src={vehicle.imageUrl} onClick={handleDrop}>
+                
+          
+                
+                
+                
+                 {vehicle.name.charAt(0)}</Avatar>
+                 
+                
+                 
+                 
               <Button variant="contained" className={classes.logout} onClick={logout}>Logout</Button>
              </div>
             
@@ -70,6 +86,11 @@ const Navbar = () => {
       </Toolbar>
        
       </AppBar>
+      { isOpen &&  
+           <Dropdown name={vehicle.name} src={vehicle.imageUrl}/> 
+          
+          }
+      </div>
   )
 }
 

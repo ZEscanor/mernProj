@@ -8,6 +8,8 @@ import PostDetails from "./components/PostDetails/PostDetails";
 import User from "./components/User/User";
 import routeUndefined from "./components/404/routeUndefined";
 import useStyles from "./styles.js";
+import working from "./components/404/working";
+
 
 
 const App = () => {
@@ -23,6 +25,7 @@ const App = () => {
         <Route path="/posts/:id"  component={PostDetails}/>
         <Route path="/auth" exact component={()=>(!JSON.parse(localStorage.getItem("profile")) ? <Auth/> : <Redirect to="/posts"/>)}/>
         <Route path="/users" component={User}/>
+        <Route path="/working" component={working}/>
         <Route path='*' exact={true} component={routeUndefined} />
       </Switch>
     </Container>

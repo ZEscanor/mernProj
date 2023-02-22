@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { getUser } from '../../actions/actionPost';
 import { Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import useStyles from './styles';
 import { mergeClasses } from '@material-ui/styles';
@@ -31,18 +32,28 @@ const SelectedUser = ({user}) => {
     <Typography className={classes.userCard}>
     {yourUser && (
         <div>
-        <p>
+          <Typography className={classes.dropdownInner} >
+        <Typography className={classes.userInfo}>
          name: {yourUser[0].name}
-         </p>
-         <p>
+         </Typography>
+         </Typography>
+
+         <Typography className={classes.dropdownInner}>
+         <Typography  className={classes.userInfo}>
         email: {yourUser[0].email}
-        </p>
-        <p>
+        </Typography>
+        </Typography>
+        
+        <Typography className={classes.dropdownInner}>
+        <Typography  className={classes.userInfo}>
         role:{yourUser[0].role}
-        </p>
+        </Typography>
+        </Typography>
+        <Typography component={Link} to='/posts'>
         <button>
         Send Message
         </button>
+        </Typography>
         </div>
     )}
     </Typography>

@@ -25,6 +25,7 @@ export default makeStyles((theme) => ({
       height: "40px",
       width: "300px",
       borderRadius: '10px',
+      textDecoration: "none",
       '&:hover' : {
       
          opacity: "0.5",

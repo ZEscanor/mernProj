@@ -33,7 +33,7 @@ const App = () => {
         <Route path="/users" component={User}/>
         <Route path="/working" component={working}/>
         <Route path="/admin" component={AdminPage}/>
-        <Route path="/side" component={AdminSide}/>
+        {/* <Route path="/side" component={AdminSide}/> */}
         <Route path='*' exact={true} component={routeUndefined} />
       </Switch>
     </Container>

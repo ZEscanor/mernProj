@@ -9,27 +9,28 @@ export default makeStyles((theme) => ({
         position: "absolute",
         top: "75px",
         right: '20px',
-        backgroundColor: "grey",
+        backgroundColor: "white",
         borderRadius: '25px',
         padding: '10px 20px',
-        width: '300px',
-        height: "400px",
+        
+        height: "250px",
         zIndex: "10",
         fontSize: "20px",
       },
 
    dropdownInner: {
-      
-      backgroundColor: "black",
-      height: "100px",
+      display: "flex",
+      justifyContent: "center",
+      backgroundColor: "white",
+      height: "40px",
       width: "300px",
-      marginBottom: "10px",
       borderRadius: '10px',
       textDecoration: "none",
       '&:hover' : {
       
          opacity: "0.5",
-         cursor: "pointer"
+         cursor: "pointer",
+         backgroundColor:"grey"
        }
       
    },
@@ -46,15 +47,17 @@ export default makeStyles((theme) => ({
       marginRight: "10px",
       backgroundColor: "#673ab7"
    },
-  
+   supportDiv: {
+      display: "flex"
+    },
    innerText: {
       display: "flex",
       alignItems: "center",
       marginLeft: "10px",
       justifyContent: "center",
-      paddingTop: "40px",
       textDecoration: "none",
-      color: "white"
+      color: "black",
+      fontSize: "18px"
    }
 
 }));

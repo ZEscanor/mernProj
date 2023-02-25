@@ -1,46 +1,53 @@
-import React from 'react';
-import { Avatar, Typography } from '@material-ui/core';
+import React, {useState} from 'react';
+import { Avatar, Typography, Box } from '@material-ui/core';
+import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
-import useStyles from './style';
-
-const Dropdown = ({name,src}) => {
-
+import useStyles from './DropdownStyle';
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const menuPaths = [{path:'/admin', innerText:"Admin Dashboard *WIP*"},{path:'/users', innerText:"Settings"},{path:'/working', innerText:"Check Messages"}, {path:'/working', innerText:"DarkMode"}]
+const Dropdown = ({name,src, dropIsFalse}) => {
     const classes = useStyles();
   return (
-    <div className={classes.dropdownMenu}>
-      <div className={classes.avatar}>
+   
+      
+    <div className={classes.dropdownMenu} >
+      <div className={classes.avatar} >
       <Avatar className={classes.innerAvatar} alt={name} src={src}>
       {name.charAt(0)}
       </Avatar>
        {name}
       </div>
-       <Typography className={classes.dropdownInner} component={Link} to='/users'>
-        
-        <Typography className={classes.innerText} >Admin Dashboard *WIP*</Typography><br/>
-        </Typography>
-       
-        <Typography className={classes.dropdownInner} component={Link} to='/working'>
-        
-        <Typography className={classes.innerText}>Change User Info</Typography><br/>
-        </Typography>
-
-        <Typography className={classes.dropdownInner} component={Link} to='/working'>
-        
-        <Typography className={classes.innerText} >Check Messages</Typography><br/>
-        </Typography>
-        
-        {/* <Typography component={Link} to='/users'>Change User Info</Typography><br/> */}
-        {/* <Typography component={Link} to='/users'>DarkMode</Typography><br/>
-        <Typography component={Link} to='/users'>Check Messages</Typography><br/> */}
-      
-
-       
+      <Divider/>
+         {menuPaths.map((path,id) =>{
+          return(
+            <div key={id} >
+          <MenuItems key={id} path={path.path} dropIsFalse={dropIsFalse} classes={classes} innerText={path.innerText}/>
+          <Divider/>
+          </div>
+          )
+         })}     
        
         </div>
-        
+       
         
        
   )
 }
+
+const MenuItems =({path,dropIsFalse, classes, innerText}) => {
+  return (
+    
+    <Typography className={classes.dropdownInner} component={Link}  to={path} onClick={dropIsFalse}>
+        
+    <Typography className={classes.innerText} >{innerText}</Typography>
+      </Typography>
+      
+    
+  )
+
+  
+
+}
+
 
 export default Dropdown

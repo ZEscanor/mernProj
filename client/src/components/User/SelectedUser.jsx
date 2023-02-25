@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 import { getUser } from '../../actions/actionPost';
 import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import {Box, useTheme} from '@mui/material';
+import { GridRowsProp } from '@mui/x-data-grid';
+import {DataGrid } from "@mui/x-data-grid";
 
 import useStyles from './styles';
 import { mergeClasses } from '@material-ui/styles';
@@ -28,8 +31,9 @@ const SelectedUser = ({user}) => {
      if(!yourUser){
         return null
      }
-  return (
-    <Typography className={classes.userCard}>
+     
+return( 
+      <Typography className={classes.userCard}>
     {yourUser && (
         <div>
           <Typography className={classes.dropdownInner} >
@@ -56,8 +60,19 @@ const SelectedUser = ({user}) => {
         </Typography>
         </div>
     )}
-    </Typography>
+    </Typography> 
+    
+
+
+
+
+
+
+
+
   )
 }
 
 export default SelectedUser
+
+

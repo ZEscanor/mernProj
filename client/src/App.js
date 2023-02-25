@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Container} from '@material-ui/core'; 
 import { Switch, Route, Redirect} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
@@ -9,13 +9,20 @@ import User from "./components/User/User";
 import routeUndefined from "./components/404/routeUndefined";
 import useStyles from "./styles.js";
 import working from "./components/404/working";
+import AdminPage from "./components/Admin.js/AdminPage";
+import AdminSide from "./components/Admin.js/AdminSide";
+import CssBaseline from '@mui/material/CssBaseline';
 
 
 const App = () => {
   const classes = useStyles();
+
+  
   return (
-    <Container maxWidth ='xl' className={classes.responsive} >
+    <Container maxWidth ='xl' className={classes.responsive}  >
+      <CssBaseline/>
       <Navbar/>
+      
 
       <Switch>
         <Route path="/" exact component={()=><Redirect to="/posts"/>}/>
@@ -25,6 +32,8 @@ const App = () => {
         <Route path="/auth" exact component={()=>(!JSON.parse(localStorage.getItem("profile")) ? <Auth/> : <Redirect to="/posts"/>)}/>
         <Route path="/users" component={User}/>
         <Route path="/working" component={working}/>
+        <Route path="/admin" component={AdminPage}/>
+        <Route path="/side" component={AdminSide}/>
         <Route path='*' exact={true} component={routeUndefined} />
       </Switch>
     </Container>

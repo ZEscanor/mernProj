@@ -60,9 +60,11 @@ const Navbar = () => {
 
     useEffect(() => {
       let menuChecker = (e)=>{
+        if(!null){
         if(!menuTriggerCheck.current.contains(e.target)){
           setIsOpen(false)
         }
+      }
       };
 
       document.addEventListener("mousedown",menuChecker);

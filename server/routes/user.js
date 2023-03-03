@@ -1,6 +1,7 @@
 import express from 'express';
 
-import {getUser,getUsers,signin,signup } from '../controllers/user.js'; 
+import {editUser, getUser,getUsers,signin,signup } from '../controllers/user.js'; 
+import auth from '../middleware/authMiddleware.js';
 
 
 const router = express.Router();
@@ -8,6 +9,7 @@ const router = express.Router();
 
 router.get('/', getUsers)
 router.get('/:id', getUser)
+router.patch('/:id',auth,editUser)
 router.post('/signin',signin)
 router.post('/signup',signup)
 

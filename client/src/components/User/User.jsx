@@ -22,7 +22,7 @@ const User = () => {
   const testGet = async () => {
     const userZ = await dispatch(getUsers())
     //console.log("it worked?", userZ)
-    userZ.map((z)=> optionz.push({value: z._id, label: z.name}))
+    //userZ.map((z)=> optionz.push({value: z._id, label: z.name}))
     //console.log(users, "users from state")
   }
 

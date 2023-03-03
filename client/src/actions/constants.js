@@ -10,6 +10,7 @@ export const DELETECOM = "DELETECOM";
 
 export const GET_USERS = "GET_USERS";
 export const GET_USER = "GET_USER";
+export const EDIT_USER = "EDIT_USER";
 
 
 export const START_LOADING = "START_LOADING";

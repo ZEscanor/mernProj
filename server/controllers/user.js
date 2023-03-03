@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
+import mongoose from 'mongoose';
 
 import User from "../models/userModel.js";
 
@@ -30,6 +31,18 @@ export const getUser = async (req, res) => {
     catch(error){
         res.status(404).json({message:"user NOT FOUND"})
     }
+}
+
+export const editUser = async (req,res) => {
+    const {id} =req.params
+    const user = req.body
+    
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No user with the current Id");
+
+    const updatedUser =  await User.findByIdAndUpdate(id, user, {new:true}); // new returns the user after the user is updated in db
+
+    res.json(updatedUser)
+    
 }
 
 

@@ -1,7 +1,7 @@
 import { FETCH_ALL,FETCH_POST,FETCH_BY_SEARCH, 
   START_LOADING, END_LOADING, CREATE,
    UPDATE, DELETE, LIKE, COMMENT, DELETECOM,
-  GET_USERS, GET_USER } from './constants';
+  GET_USERS, GET_USER, EDIT_USER } from './constants';
 import * as api from '../api';
 
 
@@ -152,3 +152,16 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
       console.log(error)
     }
   }
+
+  export const editUser = (id,user) => async (dispatch) => {
+    try{
+         const {data} = await api.editUser(id,user)
+
+         dispatch({type: EDIT_USER, payload: data});
+         return data
+    }
+  
+  catch(error){
+    console.log(error)
+  }
+}

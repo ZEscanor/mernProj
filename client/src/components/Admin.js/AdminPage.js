@@ -1,51 +1,87 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
+import {useDispatch} from "react-redux";
 import {Box, useTheme} from '@mui/material';
+import { getUsers, editUser } from "../../actions/actionPost";
 import { GridRowsProp } from '@mui/x-data-grid';
 import {DataGrid } from "@mui/x-data-grid"; 
+import Alert from '@mui/material/Alert';
 
+
+
+ 
 const AdminPage = () => {
+  const userArray = [];
     const theme = useTheme();
+    const [message,setMessage] = useState("Click a User, Change its Role, Click User again and Press Submit");
+    const [rows,setRows] = useState([]) //rows for our datagrid
+    const [currentClickedUser, setCurrentClickedUser] = useState(null); // next two lines keep track of the currently clicked user and payload
+    const [currentPayload, setCurrentPayload] = useState(null)
+    const [stateUser, setStateUser] = useState(null) // this user is solely for the purpose of reloading the page when our state finishes pushing
+    const dispatch = useDispatch(); 
     
-    const rows = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-        { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-        { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-        { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-        { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-        { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-        { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-      ];
+      
+    
+
+  useEffect( () => {
+     testGet();
+  }, [stateUser]); // on page load and when users change reload our page state
+
+ 
+  const testGet = async () => {
+    const userData = await dispatch(getUsers())
+    userData.map((user)=> userArray.push({id:user._id, name:user.name, email:user.email, role: user.role}))
+    setRows(userArray)
+  } // this function will intialize all users in our db and put it into a datagrid
+
+  
+  const handleRowClick = async (params) => {
+    const {id} = params.row
+    const row = params.row
+    setMessage(`User ${params.row.name} clicked` )
+    setCurrentClickedUser(id)
+    setCurrentPayload(row)  
+  } // clicking on a row will set current user for changes
+  const setUser = async () => {
+     const ourData = await dispatch(editUser(currentClickedUser, currentPayload));
+    setMessage(`User ${currentPayload.name} role changed to ${currentPayload.role}` )
+     setStateUser(ourData)
+  }
+
+
+
+   
       const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
+        { field: 'id', headerName: 'ID', width: 200 },
         {
-          field: 'firstName',
-          headerName: 'First name',
-          width: 150,
-          editable: true,
+          field: 'name',
+          headerName: 'Name',
+          width: 170,
         },
         {
-          field: 'lastName',
-          headerName: 'Last name',
-          width: 150,
-          editable: true,
+          field: 'email',
+          headerName: 'Email',
+          width: 170
         },
         {
-          field: 'age',
-          headerName: 'Age',
-          type: 'number',
-          width: 110,
+          field: 'role',
+          headerName: 'Role',
+          type: 'string',
+          width: 170,
           editable: true,
         },
     ]
 
   return (
-    <Box m="1.5rem 2.5rem">
+    
+    <Box m="1.5rem 2.5rem" >
+      {message && <Alert severity='info'>
+        {message}
+      </Alert> }
       <Box
         mt="30px"
-        ml="300px"
-        height="75vh"
+        ml="50px"
+        height="80vh"
+        width={{sm:"500px",md: "65%"}}
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -75,12 +111,25 @@ const AdminPage = () => {
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={10}
         rowsPerPageOptions={[10]}
-        checkboxSelection
+        onRowClick={handleRowClick}
+        autoPageSize= {true}
         disableSelectionOnClick
+      
       />
-       
+      
+       <button type='submit' onClick={setUser} style={{"background-color": "#4CAF50",
+  "border": "none",
+  "color": "white",
+  'padding': '15px 32px',
+  'text-align': 'center',
+  'text-decoration': 'none',
+  'display': 'inline-block',
+  'font-size': '16px',
+  'margin': '4px 2px',
+ ' cursor':'pointer'}}>
+           Push Changes
+       </button>
       </Box>
       
     </Box>

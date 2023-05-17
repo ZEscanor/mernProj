@@ -1,6 +1,8 @@
-# A project which highlights the use of the MERN stack
+ A project which highlights the use of the MERN stack
 
-# This app allows user to create and store memories like a journal and share them with each other.
+ This app allows user to create and store memories and interact with each other.
+ 
+ ** This project is nowhere close to being done but I am continuing to update it when I can **
  
 
 ![Screenshot (26)](https://user-images.githubusercontent.com/69213231/219229034-bcf8c17f-b52d-4ca3-81a5-43092ec734c1.png)
@@ -37,14 +39,10 @@
     Write comments on others posts.
      Setting user Privilages (Admin roles/moderation) (Users on account creation are now assigned admin or user roles
        )
+       Messaging other users and editing roles through a dashboard (done needs styling)
 
 
-    # # Features coming soon:
-       Lookup users by their profile name and if the user is logged in allow user to edit personal data (partially done)
-       Allow users to PM other users
-       Admin Dashboard and commands
-      Seperate Time management and game component.
-       
+ 
 
          
       

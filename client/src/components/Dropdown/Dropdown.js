@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 import useStyles from './DropdownStyle';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-const menuPaths = [{path:'/admin', innerText:"Admin Dashboard *WIP*"},{path:'/users', innerText:"Settings"},{path:'/working', innerText:"Check Messages"}, {path:'/working', innerText:"DarkMode"}]
+const menuPaths = [{path:'/admin', innerText:"Admin Dashboard *WIP*"},{path:'/users', innerText:"Settings"},{path:'/messages', innerText:"Check Messages"}, {path:'/working', innerText:"DarkMode"}]
 const Dropdown = ({name,src, dropIsFalse}) => {
     const classes = useStyles();
   return (

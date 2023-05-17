@@ -93,3 +93,61 @@ export const signup = async(req,res) => {
         res.status(500).json({message:"Sorry Try Again"})
     }
 }
+
+export const getMessages = async (req, res) => {
+    const {id} = req.params
+    try{
+        let thisUser = await User.find({_id: id}) // or name or id etc.
+
+        res.status(200).json(thisUser.messages)
+    }
+    catch(error){
+        res.status(404).json({message:"user NOT FOUND"})
+
+    }
+}
+
+
+export const sendMessage = async (req, res) => {
+    // console.log(req.body, "req.body")
+    // console.log(req.params, "req.params")
+    const {id} = req.params;
+    const value = req.body;
+    const {recipient} = req.body;
+    // console.log(recipient,req.body.recipient, "recipient")
+    // console.log(value, "value")
+    // console.log(id, "id")
+ 
+     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No user with the current Id");
+     if(!mongoose.Types.ObjectId.isValid(recipient)) return res.status(404).send("No user with the current Id");
+     if(!value.recipent && !value.creator) return res.status(404).send("No recipient or creator");
+ 
+    try{
+    const message = await User.findOne({_id:id});
+    const receiver = await User.findOne({_id:recipient});
+     
+    console.log(message.messages, "message._id")
+    
+
+    
+
+
+    message.messages.push(value)
+    receiver.messages.push(value)
+
+    // const updatedMessages = await User.updateOne({_id:id},  {messages: message.messages});
+    // const updatedReceiver = await User.updateOne({_id:recipient},  {messages: receiver.messages});
+
+   const updatedMessages = await message.save();
+ const updatedReceiver =await receiver.save();
+ 
+    res.status(200).json({message: 'Message sent successfully', updatedMessages, updatedReceiver});
+    }
+    catch(error){
+       res.status(500).json({ message: 'Error sending message', error: error.message});
+    }
+ 
+ }
+
+
+

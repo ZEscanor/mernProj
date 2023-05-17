@@ -1,5 +1,5 @@
-import { FETCH_ALL,FETCH_POST,FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, COMMENT, DELETECOM, GET_USERS, GET_USER, EDIT_USER } from '../actions/constants.js';
-export default (state = {isLoading: true, posts:[], users: [], curUserInquiry: []}, action) => {
+import { FETCH_ALL,FETCH_POST,FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, COMMENT, DELETECOM, GET_USERS, GET_USER, EDIT_USER, SEND_MESSAGE } from '../actions/constants.js';
+export default (state = {isLoading: true, posts:[], users: [], curUserInquiry: [], messages: []}, action) => {
     switch (action.type) {
         case START_LOADING:
             return {...state, isLoading: true}
@@ -38,6 +38,12 @@ export default (state = {isLoading: true, posts:[], users: [], curUserInquiry: [
             return {...state, curUserInquiry: [action.payload]};
         case EDIT_USER:
             return {...state, users: action.payload};
+
+        case SEND_MESSAGE:
+            return {
+                ...state,
+                messages: [...state.messages, action.payload],
+            }
        
         default:
             return state;

@@ -133,7 +133,5 @@ export const deleteComment = async (req,res) => {
 
   res.json(updatedPost)
 
-   
-
-
 }
+

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = //axios.create({baseURL:`http://localhost:5000` })
-  axios.create({baseURL:`https://mern-proj-api.vercel.app` })
+   axios.create({baseURL:`https://mern-proj-api.vercel.app` })
 
 API.interceptors.request.use((req)=>{
   if(localStorage.getItem('profile')){
@@ -28,5 +28,8 @@ export const editUser = (id,updatedUser) => API.patch(`/user/${id}`,updatedUser)
 
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
+
+
+export const sendMessage = (id,message) => API.post(`/user/${id}`, message);
 
 

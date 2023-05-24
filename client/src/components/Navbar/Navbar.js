@@ -124,7 +124,13 @@ const Navbar = () => {
             
          ) : (
           <>
-            <Button onClick={handleSub} variant='contained' color="primary">
+            <Button  style={{marginRight:"10px",
+            backgroundColor:"green",
+            color:"white"
+            
+            
+          }}
+             onClick={handleSub} variant='contained' color="primary">
               Demo
             </Button>
           <Button component={Link} to="/auth" variant='contained' color="primary">

@@ -8,7 +8,9 @@ const messageSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: new Date()
-    }
+    },
+    read: {type: Boolean, default: false},
+    messageGroup: {type: [String], default: []},
 
   });
 
@@ -22,7 +24,9 @@ const userSchema = mongoose.Schema({
     messages: {
         type: [messageSchema],
         default: []
-    }
+    },
+   
+    
 })
 
 export default mongoose.model("User", userSchema);

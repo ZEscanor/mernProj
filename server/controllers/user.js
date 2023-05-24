@@ -36,6 +36,8 @@ export const getUser = async (req, res) => {
 export const editUser = async (req,res) => {
     const {id} =req.params
     const user = req.body
+
+    console.log(user, "user")
     
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No user with the current Id");
 
@@ -96,10 +98,18 @@ export const signup = async(req,res) => {
 
 export const getMessages = async (req, res) => {
     const {id} = req.params
-    try{
-        let thisUser = await User.find({_id: id}) // or name or id etc.
 
-        res.status(200).json(thisUser.messages)
+
+    try{
+        const thisUser = await User.findOne({_id: id}) // or name or id etc.
+        
+        console.log(thisUser.messages, "thisUser.messages")
+
+        if(thisUser?.messages.length === 0){ return res.status(404).json({message:"No messages"}) }
+        
+        else {return res.status(200).json(thisUser.messages)}
+        
+        
     }
     catch(error){
         res.status(404).json({message:"user NOT FOUND"})

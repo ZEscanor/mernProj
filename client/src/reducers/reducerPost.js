@@ -1,4 +1,4 @@
-import { FETCH_ALL,FETCH_POST,FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, COMMENT, DELETECOM, GET_USERS, GET_USER, EDIT_USER, SEND_MESSAGE } from '../actions/constants.js';
+import { FETCH_ALL,FETCH_POST,FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, COMMENT, DELETECOM, GET_USERS, GET_USER, EDIT_USER, SEND_MESSAGE, GET_MESSAGES } from '../actions/constants.js';
 export default (state = {isLoading: true, posts:[], users: [], curUserInquiry: [], messages: []}, action) => {
     switch (action.type) {
         case START_LOADING:
@@ -44,6 +44,12 @@ export default (state = {isLoading: true, posts:[], users: [], curUserInquiry: [
                 ...state,
                 messages: [...state.messages, action.payload],
             }
+        case GET_MESSAGES:
+            return {
+                ...state,
+                messages: action.payload,
+            }
+            
        
         default:
             return state;

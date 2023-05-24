@@ -19,6 +19,7 @@ const AdminPage = () => {
     const [stateUser, setStateUser] = useState(null) // this user is solely for the purpose of reloading the page when our state finishes pushing
     const dispatch = useDispatch(); 
     
+    
       
     
 
@@ -35,20 +36,52 @@ const AdminPage = () => {
 
   
   const handleRowClick = async (params) => {
-    const {id} = params.row
-    const row = params.row
-    setMessage(`User ${params.row.name} clicked` )
-    setCurrentClickedUser(id)
-    setCurrentPayload(row)  
+
+    //  const {id} = params?.row
+    //  const {role} = params?.row
+    //  const {name} = params?.row
+    //  const {email} = params?.row
+    //  const payload = {id,name,role ,email}
+    //  console.log(payload)
+    
+    //   setMessage(`User ${payload.name} ${payload.role} selected`)
+    //   return payload
+    const { id, role, name, email } = params?.row;
+    const payload = { id, name, role, email };
+    console.log(payload);
+  
+    setMessage(`User ${payload.name} ${payload.role} selected`);
+    setCurrentClickedUser(params?.row);
+    setCurrentPayload(payload);
+
+
   } // clicking on a row will set current user for changes
   const setUser = async () => {
-     const ourData = await dispatch(editUser(currentClickedUser, currentPayload));
-    setMessage(`User ${currentPayload.name} role changed to ${currentPayload.role}` )
-     setStateUser(ourData)
-  }
+    //   const para = await handleRowClick()
+    //     console.log(para , "params")
+    // if (para.id != null && para.role != null) {
+    
+    //   const data = await dispatch(editUser(para.id, para.role))
+    //   //console.log(data)
+    //   setMessage(`User ${data.name} updated to ${data.role}`)
+    //   setStateUser(data)
+
+    //   return data
+    if (currentPayload?.id != null && currentPayload?.role != null) {
+      const data = await dispatch(editUser(currentPayload.id, currentPayload.role));
+      setMessage(`User ${data.name} updated to ${data.role}`);
+      setStateUser(data);
+      return data;
+    }
+    }
+
+      
+
+      
+  
 
 
-
+  
    
       const columns = [
         { field: 'id', headerName: 'ID', width: 200 },
@@ -118,7 +151,9 @@ const AdminPage = () => {
       
       />
       
-       <button type='submit' onClick={setUser} style={{"background-color": "#4CAF50",
+       <button type='submit'  
+       onClick={setUser}
+       style={{"background-color": "#4CAF50",
   "border": "none",
   "color": "white",
   'padding': '15px 32px',

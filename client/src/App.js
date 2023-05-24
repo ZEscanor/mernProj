@@ -12,6 +12,7 @@ import working from "./components/404/working";
 import AdminPage from "./components/Admin.js/AdminPage";
 import AdminSide from "./components/Admin.js/AdminSide";
 import CssBaseline from '@mui/material/CssBaseline';
+import Messenger from "./components/Messaging/Messenger";
 
 
 
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/users" component={User}/>
         <Route path="/working" component={working}/>
         <Route path="/admin" component={AdminPage}/>
+        <Route path='/messages' component={Messenger}/>
         {/* <Route path="/side" component={AdminSide}/> */}
         <Route path='*' exact={true} component={routeUndefined} />
       </Switch>

@@ -7,6 +7,9 @@ import memories from "../../images/memories.png";
 import decode from "jwt-decode";
 import Dropdown from "../Dropdown/Dropdown";
 import ClickAwayListener from '@mui/base/ClickAwayListener';
+import { signin } from '../../actions/authActions';
+
+
 const Navbar = () => {
   
     const classes = useStyles();
@@ -16,6 +19,14 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
+
+    const demoState =  {
+      firstName: '',
+      lastName: '',
+      email: 'jwick429@gmail.com',
+      password:'jwick429@gmail.com',
+      confirmPassword:''
+    }
 
     let menuTriggerCheck = useRef(); // reference for our menu
     
@@ -43,6 +54,11 @@ const Navbar = () => {
       setIsOpen(false)
     }
 
+    const handleSub = async() => {
+      dispatch(signin( demoState,history))
+
+    }
+
     
     
     useEffect(()=>{
@@ -61,7 +77,7 @@ const Navbar = () => {
     useEffect(() => {
       let menuChecker = (e)=>{
         if(!null){
-        if(!menuTriggerCheck.current.contains(e.target)){
+        if(!menuTriggerCheck?.current?.contains(e.target)){
           setIsOpen(false)
         }
       }
@@ -107,9 +123,20 @@ const Navbar = () => {
              </div>
             
          ) : (
-            <Button component={Link} to="/auth" variant='contained' color="primary">
-              Sign In
+          <>
+            <Button  style={{marginRight:"10px",
+            backgroundColor:"green",
+            color:"white"
+            
+            
+          }}
+             onClick={handleSub} variant='contained' color="primary">
+              Demo
             </Button>
+          <Button component={Link} to="/auth" variant='contained' color="primary">
+          Sign In
+        </Button>
+        </>
          )
 
          }

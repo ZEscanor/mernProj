@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { sendMessage, getUsers, getMessages } from '../../actions/actionPost';
 import { Avatar } from '@material-ui/core';
-import {FaLocationArrow, FaAccessibleIcon} from 'react-icons/fa';
+import {FaLocationArrow, FaAccessibleIcon, FaTrash, FaUser, FaArrowLeft} from 'react-icons/fa';
 import useStyles from './MessageStyles';
 
 
@@ -20,7 +20,10 @@ const Messenger = () => {
       recipient
       : ''
     });
+    const [currentMessage, setCurrentMessage] = useState({});
     const [createMessageButton, setCreateMessageButton] = useState(false);
+    const [messageClicked, setMessageClicked] = useState(false);
+    const [toggleDeleteMode, setToggleDeleteMode] = useState(false);
 
     const [users, setUsers] = useState([]);
 
@@ -34,7 +37,7 @@ const Messenger = () => {
       e.preventDefault();
       //console.log(message, 'message from messenger');
       const data = await dispatch(sendMessage(user?.result?._id, message));
-      console.log(data, 'data from messenger');
+      //console.log(data, 'data from messenger');
       clear();
       history.push('/messages');
       return data;
@@ -76,47 +79,73 @@ const Messenger = () => {
       
 
       <div>
-        {/* <div>
-          {messages?.map((message) => (
-            <div>
-              <h1>{message.title}</h1>
-              <p>{message.message}</p>
-
-              </div>
-          ))}
-
-      </div> */}
+  
       <div className={classes.messageDropDown} >
 
       <div>
+        {messageClicked && <button onClick={() => setMessageClicked(false)}><FaArrowLeft/> Back</button>}
         <button className={classes.buttons} 
 
 
       >
-         <FaLocationArrow 
+         <FaLocationArrow
+         
          
          />
         </button>
         <button  className={classes.buttons} > 
-          <FaAccessibleIcon />
+          <FaTrash />
         </button>
         <button  className={classes.buttons} >
-        <FaAccessibleIcon/>
+        <FaUser/>
         </button>
       
-        <h1>Messages</h1>
+        {!messageClicked && <h1>Messages</h1>}
         <div>
-          {messages.length > 0 ? messages.map((message, idx) => (
+          
+          {!messageClicked && messages.length > 0 ? messages.map((message, idx) => (
             <div className={classes.messageHolder} key={idx}
+            onClick={() => { 
+              setMessageClicked(true);
+              setCurrentMessage(message);
+            }}
           
               >
-              <p>{message.title}</p>
-              <p>{message.message}</p>
+              <p style={
+                {
+                  fontWeight: 'bold',
+                  fontSize: '20px',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  margin: '10px',
+                  padding: '10px',
+
+
+
+                }
+              }>Title: {message.title}</p>
+              {/* <p>{message.message}</p> */}
                {/* {console.log(users.find(user => user._id === message.recipient).name, 'user from messenger')} */}
-              <p>{users.find(user => user._id === message.recipient).name}</p>
-              
+              <p style={{
+                margin: '10px',
+                padding: '10px',
+                borderRadius: '10px',
+              }}> Sent To: {users.find(user => user._id === message.recipient).name}</p>
+              <p style={{
+                margin: '10px',
+                padding: '10px',
+                borderRadius: '10px',
+              }}>Sent By: {users.find(user => user._id === message.creator).name}</p>
+              <div>
+                
+                <p>Message Sent At: {new Date(message.createdAt).toLocaleString()
+                
+                }</p>
+                </div>
+                
       </div>
-          )) : <h1>No Messages</h1>}
+      
+          )) : messageClicked ? <MessageCard users={users} message={currentMessage} /> : <p>No Messages</p>}
 
       </div>
       </div>
@@ -125,47 +154,8 @@ const Messenger = () => {
 
    
       <div>
-        <h1>Send a Message Beta</h1>
-        <form 
-          onSubmit={handleSubmit}
-          className={classes.form}
-      
-        >
-          
-          <input type="text" placeholder="Title"
-            value={message.title}
-            name='title'
-            onChange={handleChange}
-          />
-          <input type="text" placeholder="Message"
-            value={message.message}
-            name='message'
-            onChange={handleChange}
-          />
-          <input type="text" placeholder="Recipient"
-            name='recipient'
-            value={message.recipient}
-            onChange={handleChange}
-          />
-          <input type='name' 
-            value={users[message.recipient]?.name}
-            />
-
-          {/* <select name="recipient" id="recipient" onChange={handleChange}>
-            <option value="">Select a recipient</option>
-            {users?.map((user) => (
-              <option value={user._id}>{user.name}</option>
-            ))}
-          </select> */}
-          <button  
-          className={classes.buttonSubmit}
-            type="submit"
-          
-          
-          >Send</button>
-        </form>
-
-      <ContactList users={users} message={message} setMessage={setMessage} />
+      <SendMessageComponent users={users} message={message} handleSubmit={handleSubmit} classes={classes} handleChange={handleChange} setMessage={setMessage} />
+    
 
 
       </div>
@@ -255,6 +245,86 @@ const ContactList = ({users, message, setMessage}) => {
       </div>
 
     </div>
+  )
+}
+
+
+const MessageCard = ({users,message}) => {
+ 
+  return(
+    <div>
+      <div>
+        <h1 style={{
+          margin: '10px',
+          padding: '10px',
+          borderRadius: '10px',
+          
+        }}> Title: {message.title}</h1>
+        <p style={{
+          margin: '10px',
+          padding: '10px',
+          borderRadius: '10px',
+          fontSize: '20px',
+
+        }}> Content: {message.message}</p>
+        <p> Recipient: {users.find(user => user._id === message.recipient).name}</p>
+       
+        
+      </div>
+    </div>
+  )
+}
+
+
+const SendMessageComponent =  ({users, message, handleSubmit, handleChange, classes, setMessage}) => {
+
+  // if(message.recipient === '') {
+  //   return (
+  //     <div>
+  //       Something went wrong
+  //     </div>
+  //   )
+  // }
+  return (
+    <div>
+        <h1>Send a Message Beta</h1>
+        <form 
+          onSubmit={handleSubmit}
+          className={classes.form}
+      
+        >
+          
+          <input type="text" placeholder="Title"
+            value={message.title}
+            name='title'
+            onChange={handleChange}
+          />
+          <input type="text" placeholder="Message"
+            value={message.message}
+            name='message'
+            onChange={handleChange}
+          />
+          {/* <input type="text" placeholder="Recipient"
+            name='recipient'
+            value={message.recipient}
+            onChange={handleChange}
+          /> */}
+          <input type='name' 
+            value={message.recipient !== '' ? users.find(user => user._id === message.recipient).name : ''}
+            />
+
+          <button  
+          className={classes.buttonSubmit}
+            type="submit"
+          
+          
+          >Send</button>
+        </form>
+
+      <ContactList users={users} message={message} setMessage={setMessage} />
+
+
+      </div>
   )
 }
 

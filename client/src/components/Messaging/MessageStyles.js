@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '20%',
+        width: '30%',
         height: '80%',
         backgroundColor: 'white',
         borderRadius: '10px',
@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
     messageHolder: {
 
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         width: '100%',
@@ -36,9 +36,10 @@ export default makeStyles((theme) => ({
         backgroundColor: 'white',
         borderRadius: '10px',
         padding: '20px',
-        boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
-        marginBottom: '10px',
+        boxShadow: '0 0 10px 0 rgba(0,0,0,0.4)',
+        marginBottom: '20px',
         cursor: 'pointer'
+        
     },
 
     buttonSubmit: {
@@ -61,4 +62,15 @@ export default makeStyles((theme) => ({
         backgroundColor: 'white',
         borderRadius: '10px',
     },
+
+    buttons: {
+        border: 'none',
+          backgroundColor: 'transparent',
+          cursor: 'pointer',
+          margin: '10px',
+          padding: '10px',
+          borderRadius: '10px',
+          boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+          zIndex: '1000'
+    }
 }));

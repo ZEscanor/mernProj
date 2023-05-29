@@ -31,5 +31,5 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 
 export const getMessages = (id) => API.get(`/user/${id}/messages`);
 export const sendMessage = (id,message) => API.post(`/user/${id}`, message);
-
+export const deleteMessage = (id, message) => API.patch(`/user/${id}/deleteMessage`, message);
 

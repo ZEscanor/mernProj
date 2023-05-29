@@ -1,6 +1,6 @@
 import express from 'express';
 
-import {editUser, getUser,getUsers,signin,signup, sendMessage, getMessages } from '../controllers/user.js'; 
+import {editUser, getUser,getUsers,signin,signup, sendMessage, getMessages, deleteMessage } from '../controllers/user.js'; 
 import auth from '../middleware/authMiddleware.js';
 
 
@@ -16,6 +16,7 @@ router.post('/signin',signin)
 router.post('/signup',signup)
 
 router.post('/:id',sendMessage)
+router.patch('/:id/deleteMessage',deleteMessage)
 
 
 

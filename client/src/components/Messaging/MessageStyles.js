@@ -72,5 +72,11 @@ export default makeStyles((theme) => ({
           borderRadius: '10px',
           boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
           zIndex: '1000'
-    }
+    },
+    messengerContent: {
+        margin: '10px',
+        padding: '10px',
+        borderRadius: '10px',
+
+    },
 }));

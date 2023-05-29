@@ -1,7 +1,7 @@
 import React , {useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { sendMessage, getUsers, getMessages } from '../../actions/actionPost';
+import { sendMessage, getUsers, getMessages, deleteMessage } from '../../actions/actionPost';
 import { Avatar } from '@material-ui/core';
 import {FaLocationArrow, FaAccessibleIcon, FaTrash, FaUser, FaArrowLeft} from 'react-icons/fa';
 import useStyles from './MessageStyles';
@@ -55,6 +55,15 @@ const Messenger = () => {
       setMessage({ ...message, [e.target.name]: e.target.value, creator: user?.result?._id, createdAt: new Date().toISOString() });
     }
 
+    const handleDelete = async(currMessage) => {
+      
+      setToggleDeleteMode(!toggleDeleteMode);
+     console.log(messages[currMessage], 'currMessage from messenger');
+    const data =  await dispatch(deleteMessage(user?.result?._id, messages[currMessage]));
+    setMessageClicked(false);
+    return data;
+    }
+
     useEffect( () => {
       if (user?.token) {
         const fetchData = async () => {
@@ -68,7 +77,7 @@ const Messenger = () => {
     
         fetchData();
       }
-    }, [dispatch, user?.token, user?.result?._id, getUsers, getMessages]);
+    }, [dispatch, user?.token, user?.result?._id, getUsers, getMessages, messages]);
 
 
     
@@ -93,9 +102,12 @@ const Messenger = () => {
          
          />
         </button>
-        <button  className={classes.buttons} > 
+   {!messageClicked &&    <button  className={classes.buttons}
+        onClick={() => setToggleDeleteMode(!toggleDeleteMode)}
+        
+        > 
           <FaTrash />
-        </button>
+        </button>   }
         <button  className={classes.buttons} >
         <FaUser/>
         </button>
@@ -103,11 +115,11 @@ const Messenger = () => {
         {!messageClicked && <h1>Messages</h1>}
         <div>
           
-          {!messageClicked && messages.length > 0 ? messages.map((message, idx) => (
+          {!messageClicked && messages.length > 0 ? messages.map((messageX, idx) => (
             <div className={classes.messageHolder} key={idx}
             onClick={() => { 
               setMessageClicked(true);
-              setCurrentMessage(message);
+              setCurrentMessage(messageX);
             }}
           
               >
@@ -123,24 +135,39 @@ const Messenger = () => {
 
 
                 }
-              }>Title: {message.title}</p>
+              }>Title: {messageX.title}</p>
               {/* <p>{message.message}</p> */}
                {/* {console.log(users.find(user => user._id === message.recipient).name, 'user from messenger')} */}
-              <p style={{
-                margin: '10px',
-                padding: '10px',
-                borderRadius: '10px',
-              }}> Sent To: {users.find(user => user._id === message.recipient).name}</p>
-              <p style={{
-                margin: '10px',
-                padding: '10px',
-                borderRadius: '10px',
-              }}>Sent By: {users.find(user => user._id === message.creator).name}</p>
+              <p className = {classes.messengerContent}> 
+              Sent To: {users.find(user => user._id === messageX.recipient).name}</p>
+              <p className = {classes.messengerContent}>
+                Sent By: {users.find(user => user._id === messageX.creator).name}
+                </p>
               <div>
                 
-                <p>Message Sent At: {new Date(message.createdAt).toLocaleString()
+                <p>Message Sent At: {new Date(messageX.createdAt).toLocaleString()
+                
                 
                 }</p>
+            
+                {toggleDeleteMode && <button
+                style={{
+                  backgroundColor: 'red',
+                  color: 'white',
+                  borderRadius: '10px',
+                  padding: '10px',
+                  margin: '10px',
+                  cursor: 'pointer',
+                  boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+                  position: 'relative',
+                  left: '40%',
+                  transform: 'translateX(-50%)',
+                  width: '80px',
+                  height: '50px',
+                  fontSize: '20px',
+                }} 
+                onClick={() => handleDelete(idx)}
+                >Delete</button>}
                 </div>
                 
       </div>
@@ -225,8 +252,7 @@ const ContactList = ({users, message, setMessage}) => {
               
             }}
             
-            >
-              
+            >   
                <Avatar src={user.imageUrl} alt={user.name} style={{
                   margin: '10px',
                   padding: '10px',
@@ -254,20 +280,19 @@ const MessageCard = ({users,message}) => {
   return(
     <div>
       <div>
-        <h1 style={{
-          margin: '10px',
-          padding: '10px',
-          borderRadius: '10px',
-          
-        }}> Title: {message.title}</h1>
+        <h1>{message.title}</h1>
+          <p> Recipient: {users.find(user => user._id === message.recipient).name}</p>
         <p style={{
           margin: '10px',
           padding: '10px',
           borderRadius: '10px',
           fontSize: '20px',
+          width: '300px',
+          wordWrap: 'break-word',
+              overflowWrap: 'break-word',
 
         }}> Content: {message.message}</p>
-        <p> Recipient: {users.find(user => user._id === message.recipient).name}</p>
+        
        
         
       </div>
@@ -299,10 +324,15 @@ const SendMessageComponent =  ({users, message, handleSubmit, handleChange, clas
             name='title'
             onChange={handleChange}
           />
-          <input type="text" placeholder="Message"
+          <textarea type="text" placeholder="Message"
             value={message.message}
             name='message'
             onChange={handleChange}
+            style={{
+              height: '100px',
+              wordWrap: 'break-word',
+              overflowWrap: 'break-word',
+            }}
           />
           {/* <input type="text" placeholder="Recipient"
             name='recipient'

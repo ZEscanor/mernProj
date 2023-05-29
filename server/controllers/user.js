@@ -37,7 +37,7 @@ export const editUser = async (req,res) => {
     const {id} =req.params
     const user = req.body
 
-    console.log(user, "user")
+    //console.log(user, "user")
     
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No user with the current Id");
 
@@ -103,7 +103,7 @@ export const getMessages = async (req, res) => {
     try{
         const thisUser = await User.findOne({_id: id}) // or name or id etc.
         
-        console.log(thisUser.messages, "thisUser.messages")
+        //console.log(thisUser.messages, "thisUser.messages")
 
         if(thisUser?.messages.length === 0){ return res.status(404).json({message:"No messages"}) }
         
@@ -136,7 +136,7 @@ export const sendMessage = async (req, res) => {
     const message = await User.findOne({_id:id});
     const receiver = await User.findOne({_id:recipient});
      
-    console.log(message.messages, "message._id")
+    //console.log(message.messages, "message._id")
     
 
     
@@ -158,6 +158,35 @@ export const sendMessage = async (req, res) => {
     }
  
  }
+
+    export const deleteMessage = async (req, res) => {
+        const {id} = req.params;
+        const messageId = req.body
+        // console.log(messageId, "messageId")
+        // console.log(messageId.message, "messageId.message"
+        // )
+        
+
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No user with the current Id");
+        
+        try{
+            const message = await User.findOne({_id:id});
+            const index = message.messages.findIndex((message) =>
+            message.message === messageId.message &&
+            message.title === messageId.title &&
+            message.recipient === messageId.recipient &&
+            message.creator === messageId.creator &&
+            message.read === messageId.read 
+                
+            );
+             message.messages.splice(index, 1);
+             const updatedMessages = await message.save();
+            res.status(200).json({message: 'Message deleted successfully'});
+        }
+        catch(error){
+            res.status(500).json({ message: 'Error deleting message', error: error.message});
+        }
+    }
 
 
 

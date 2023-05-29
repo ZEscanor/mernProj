@@ -2,7 +2,7 @@ import { FETCH_ALL,FETCH_POST,FETCH_BY_SEARCH,
   START_LOADING, END_LOADING, CREATE,
    UPDATE, DELETE, LIKE, COMMENT, DELETECOM,
   GET_USERS, GET_USER, EDIT_USER, SEND_MESSAGE,
-GET_MESSAGES} from './constants';
+GET_MESSAGES, DELETE_MESSAGE} from './constants';
 import * as api from '../api';
 
 
@@ -189,6 +189,21 @@ export const getMessages = (id) => async (dispatch) => {
     //console.log(data, "data")
     dispatch({
       type: GET_MESSAGES,
+      payload: data
+    });
+    return data
+  }
+  catch(error){
+    console.log(error)
+  }
+}
+
+export const deleteMessage = (id, messageID) => async (dispatch) => {
+  try{
+    const {data} = await api.deleteMessage(id, messageID)
+    console.log(data, "data")
+    dispatch({
+      type: DELETE_MESSAGE,
       payload: data
     });
     return data

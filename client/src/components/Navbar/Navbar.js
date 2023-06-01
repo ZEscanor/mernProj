@@ -6,7 +6,6 @@ import useStyles from './styles';
 import memories from "../../images/memories.png";
 import decode from "jwt-decode";
 import Dropdown from "../Dropdown/Dropdown";
-import ClickAwayListener from '@mui/base/ClickAwayListener';
 import { signin } from '../../actions/authActions';
 
 

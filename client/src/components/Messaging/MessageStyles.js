@@ -57,7 +57,7 @@ export default makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '20%',
+        width: '80%',
         height: '80%',
         backgroundColor: 'white',
         borderRadius: '10px',
@@ -79,4 +79,30 @@ export default makeStyles((theme) => ({
         borderRadius: '10px',
 
     },
+
+    deleteButton: {
+
+        backgroundColor: 'red',
+        color: 'white',
+        borderRadius: '10px',
+        padding: '10px',
+        margin: '10px',
+        cursor: 'pointer',
+        boxShadow: '0 0 10px 0 rgba(0,0,0,0.2)',
+        position: 'relative',
+        left: '40%',
+        transform: 'translateX(-50%)',
+        width: '80px',
+        height: '50px',
+        fontSize: '20px',
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: '20px',
+        textDecoration: 'underline',
+        cursor: 'pointer',
+        margin: '10px',
+        padding: '10px',
+    }
+
 }));

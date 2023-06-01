@@ -10,24 +10,22 @@ import {DataGrid } from "@mui/x-data-grid";
 import useStyles from './styles';
 import { mergeClasses } from '@material-ui/styles';
 
-const SelectedUser = ({user}) => {
+const SelectedUser = ({selectedUse
+
+}) => {
   //console.log(user, "id")
+  //console.log(selectedUse, "selectedUse")
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [yourUser,setYourUser] = useState(null)
-
-  useEffect( () => {
-    getSpecificUser(user)
-   
- }, [user]);
-    const getSpecificUser = async (id) => {
-        // console.log(id)
-         const userZ = await dispatch(getUser(id))
-         setYourUser(userZ)
-         //console.log("it worked?", userZ
-         return
-       }
-     console.log(yourUser)
+  const yourUser = selectedUse
+    // const getSpecificUser = async (id) => {
+    //     // console.log(id)
+    //      const userZ = await dispatch(getUser(id))
+    //      setYourUser(userZ)
+    //      //console.log("it worked?", userZ
+    //      return
+    //    }
+    //  console.log(yourUser)
      if(!yourUser){
         return null
      }
@@ -53,8 +51,23 @@ return(
         role:{yourUser[0].role}
         </Typography>
         </Typography>
-        <Typography component={Link} to='/posts'>
-        <button>
+        <Typography component={Link} to='/messages'>
+        <button 
+         style={
+          {
+            backgroundColor: '#3f51b5',
+            color: 'white',
+            padding: '8px',
+            border: 'none',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            margin: '10px',
+            fontSize: '20px'
+
+
+          }
+         }
+        >
         Send Message
         </button>
         </Typography>

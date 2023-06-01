@@ -21,17 +21,24 @@ export default makeStyles((theme) => ({
   },
   
   dropdownInner: {
-      
-    backgroundColor: "grey",
-    height: "70px",
-    width: "100%",
-    marginBottom: "10px",
-    borderRadius: '10px',
-    color:"white",
-    '&:hover' : {
     
-       opacity: "0.5",
-       cursor: "pointer"
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "white",
+    borderRadius: "10px",
+    padding: "20px",
+    boxShadow: "0 0 10px 0 rgba(0,0,0,0.2)",
+    marginBottom: "20px",
+    cursor: "pointer",
+    color: "black",
+    '&:hover' : {
+      backgroundColor: "teal",
+      color: "white"
+      
      }
     
  },

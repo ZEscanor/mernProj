@@ -5,6 +5,7 @@ import { Paper,Typography } from '@material-ui/core';
 import useStyles from './styles';
 import SelectedUser from './SelectedUser';
 import 'react-dropdown/style.css';
+import { keyframes } from '@emotion/react';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -50,8 +51,8 @@ const User = () => {
 
   
 
-  if(!optionz){
-    return null ; 
+  if(!optionz.length){
+    return <h1 className={classes.loading}></h1> ; 
   }
   return (
     <div className={classes.userDiv} >
@@ -88,7 +89,11 @@ const User = () => {
      
     
 
-    <Paper style={{ padding: '20px', borderRadius: '15px' ,marginTop: "30px"}} elevation={6}>
+    <Paper style={{ padding: '20px', borderRadius: '15px' ,marginTop: "30px",
+    height: "100%",
+
+  
+  }} elevation={6}>
     {selectedUse.length > 0 && (
         <SelectedUser selectedUse= {selectedUse}/>
     )}

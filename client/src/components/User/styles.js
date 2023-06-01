@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     
   },
   userDiv: {
-    width: "50%",
+    
   },
   userInfo: {
     marginBottom: "30px",
@@ -42,4 +42,25 @@ export default makeStyles((theme) => ({
      }
     
  },
+
+ loading: {
+  extAlign: "center",
+  marginTop: "100px",
+  width: '40px',
+  height: '40px',
+  borderRadius: '50%',
+ border: '3px solid #f2f2f2',
+ borderTopColor: '#3498db',
+  animation: '$spin 1s infinite linear',
+
+ },
+ '@keyframes spin': {
+  from: {
+    transform: 'rotate(0deg)',
+  },
+  to: {
+    transform: 'rotate(360deg)',
+  },
+},
+
 }));

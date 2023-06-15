@@ -29,17 +29,17 @@ const Navbar = () => {
 
     let menuTriggerCheck = useRef(); // reference for our menu
     
-    let vehicle = {}
+    let userFromGoogleOrBackend = {}
     const logout = () => {
      dispatch({type:"LOGOUT"});
      history.push('/')
      setUser(null);
     }
     if(user?.user){
-       vehicle = user.user
+       userFromGoogleOrBackend = user.user
     }
     else if(user?.result){
-       vehicle = user.result
+       userFromGoogleOrBackend = user.result
     } // fixes oauth undefined
       //essentially we can get two user objs one from google oauth and the one we created from our schema
   
@@ -109,10 +109,10 @@ const Navbar = () => {
               
               {/* Our drop down */}
              <div  ref={menuTriggerCheck}> {/* First we define a ref which references the current div clicked we then have a mousedown event in our Use effect so we can close the div when clicked*/}
-              <Avatar className={classes.purple} alt={vehicle.name } src={vehicle.imageUrl} onClick={handleDrop}>
-               {vehicle.name.charAt(0)}</Avatar>
+              <Avatar className={classes.purple} alt={userFromGoogleOrBackend.name } src={userFromGoogleOrBackend.imageUrl} onClick={handleDrop}>
+               {userFromGoogleOrBackend.name.charAt(0)}</Avatar>
                  { isOpen &&  (
-                  <Dropdown className="hello" name={vehicle.name} src={vehicle.imageUrl} isOpen={open} dropIsFalse={dropIsFalse}/> )
+                  <Dropdown className="hello" name={userFromGoogleOrBackend.name} src={userFromGoogleOrBackend.imageUrl} isOpen={open} dropIsFalse={dropIsFalse}/> )
           }
                  </div>
                 

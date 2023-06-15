@@ -5,12 +5,14 @@ import Post from './Post/Post';
 
 import useStyles from './styles';
 
+// this component will display all of the posts we have in the database
 const Posts = ({setCurrentId}) => {
-  const {posts, isLoading} = useSelector((state)=> state.posts)
+  const {posts, isLoading} = useSelector((state)=> state.posts) // get the posts and isLoading state from the global state
   const classes = useStyles();
 
  // console.log(posts)
- if(!posts.length && !isLoading) return <div className={classes.noPosts} >No Posts match that search, Try Again</div>
+ if(!posts.length && !isLoading) return <div className={classes.noPosts} >No Posts match that search, Try Again</div> 
+ // if there are no posts and we are not loading, display a message to the user
   return (
    isLoading ? <CircularProgress/> : (
     <Grid className={classes.container} container alignItems="stretch" spacing={3}>

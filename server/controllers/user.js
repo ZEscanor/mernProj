@@ -19,6 +19,7 @@ export const getUsers = async (req, res) => {
      
 
 }  // can modify this to be find all user with {NAME FROM REQ.BODY}
+  // get users will find all the users in the database and send them to the client side
 
 export const getUser = async (req, res) => {
     const {id} = req.params
@@ -32,6 +33,7 @@ export const getUser = async (req, res) => {
         res.status(404).json({message:"user NOT FOUND"})
     }
 }
+// get user will find a user by the id in the params and send it to the client side
 
 export const editUser = async (req,res) => {
     const {id} =req.params
@@ -47,6 +49,7 @@ export const editUser = async (req,res) => {
     
 }
 
+// edit user will find a user by the id in the params and update it with the user from the request body
 
 
 
@@ -72,6 +75,15 @@ export const signin = async(req,res) => {
        res.status(500).json({message:"Sorry Try Again"})
     }
 }
+/*
+signin will get the email and password from the request body,
+find the user by the email,
+compare the password from the request body with the password from the database,
+if the password is correct, create a token with the user email and id,
+send the token and the user to the client side
+
+
+*/
 
 
 export const signup = async(req,res) => {
@@ -96,6 +108,11 @@ export const signup = async(req,res) => {
     }
 }
 
+/*
+same as signin but instead of finding the user, 
+it creates a new user with the email, password, and name from the request body
+*/
+
 export const getMessages = async (req, res) => {
     const {id} = req.params
 
@@ -116,17 +133,15 @@ export const getMessages = async (req, res) => {
 
     }
 }
+// getMessages will find a user by the id in the params and send the messages to the client side
 
 
 export const sendMessage = async (req, res) => {
-    // console.log(req.body, "req.body")
-    // console.log(req.params, "req.params")
+
     const {id} = req.params;
     const value = req.body;
     const {recipient} = req.body;
-    // console.log(recipient,req.body.recipient, "recipient")
-    // console.log(value, "value")
-    // console.log(id, "id")
+  
  
      if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No user with the current Id");
      if(!mongoose.Types.ObjectId.isValid(recipient)) return res.status(404).send("No user with the current Id");
@@ -136,7 +151,7 @@ export const sendMessage = async (req, res) => {
     const message = await User.findOne({_id:id});
     const receiver = await User.findOne({_id:recipient});
      
-    //console.log(message.messages, "message._id")
+    
     
 
     
@@ -144,9 +159,6 @@ export const sendMessage = async (req, res) => {
 
     message.messages.push(value)
     receiver.messages.push(value)
-
-    // const updatedMessages = await User.updateOne({_id:id},  {messages: message.messages});
-    // const updatedReceiver = await User.updateOne({_id:recipient},  {messages: receiver.messages});
 
    const updatedMessages = await message.save();
  const updatedReceiver =await receiver.save();
@@ -158,6 +170,7 @@ export const sendMessage = async (req, res) => {
     }
  
  }
+    // sendMessage will find a user by the id in the params and push the message from the request body to the messages array
 
     export const deleteMessage = async (req, res) => {
         const {id} = req.params;
@@ -187,6 +200,8 @@ export const sendMessage = async (req, res) => {
             res.status(500).json({ message: 'Error deleting message', error: error.message});
         }
     }
+    // deleteMessage will find a user by the id in the params and delete the message from the request body from the messages array
 
 
 
+ 

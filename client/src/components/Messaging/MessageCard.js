@@ -6,7 +6,7 @@ import React from 'react';
 
 
 
-
+// this component will style and display an individual message from an array of messages
 const MessageCard = ({users,message}) => {
  
     return(

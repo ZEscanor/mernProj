@@ -7,13 +7,14 @@ import { getPost, getPostsBySearch } from '../../actions/actionPost';
 import CommentSection from './CommentSection';
 import useStyles from "./styles";
 
+// if an individual post is clicked, it will show the details of that post
 const PostDetails = () => {
  
  const {post, posts, isLoading} = useSelector((state) => state.posts);
    // console.log("PostDetails")
 const dispatch = useDispatch();
 const history = useHistory();
-const {id} = useParams();
+const {id} = useParams(); // id of the post
 const classes = useStyles();
 
 useEffect(()=>{
@@ -33,7 +34,7 @@ if(isLoading){
   return (<Paper elevation={6} className={classes.loadingPaper}>
     <CircularProgress size="7em" />
   </Paper> );
-}
+} // if the post is loading, it will show the circular progress bar
 
 const recommendedPosts = posts.filter(({_id}) => _id !== post._id)
 //console.log(recommendedPosts,  "rec")

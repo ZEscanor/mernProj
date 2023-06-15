@@ -13,7 +13,7 @@ export const getPost = async (req,res) => {
    catch(error){
       res.status(404).json({message:error.message})
    }
-}
+}  // we will get a singular post by finding it by its id in the mongoDB database
 
 
 
@@ -32,8 +32,14 @@ export const getPosts = async (req,res)=>{
    catch(error) {
       res.status(404).json({message: error.message})
    }
-}
-
+}  /* get posts will first get the page number from the query, 
+ find the total number of posts,find the posts by the page number and the limit of 8 posts per page, 
+ sort the posts by the most recent post, 
+ skip the posts that are not on the current page,
+ then finally 
+ send the posts, 
+the current page, and the number of pages to the client side
+*/
 export const getPostsBySearch = async (req,res) => {
    const {searchQuery, tags} = req.query 
    
@@ -47,6 +53,10 @@ export const getPostsBySearch = async (req,res) => {
       res.status(404).json({message: error.message})
    }
 }
+/* get posts by search will first get the search query and the tags from the query,
+   then it will find the posts by the search query and the tags,
+   then it will send the posts to the client side
+*/
 
 
 export const createPost = async (req,res) => {
@@ -62,6 +72,12 @@ export const createPost = async (req,res) => {
      res.status(400).json({message:error.message})
    }
 }
+/*
+create post will first get the post from the request body,
+then it will create a new post with the post from the request body, the creator id, and the current date,
+then it will save the new post,
+then it will send the new post to the client side
+*/
 
 export const updatePost = async (req,res) => {
    const {id:_id} = req.params;
@@ -74,6 +90,13 @@ export const updatePost = async (req,res) => {
    
    res.json(updatedPost);
 }
+/*
+update post will first get the id from the request parameters,
+get the post from the request body,
+ check if the id is valid in our mongoose schema,
+update the post with the id and the post from the request body,
+ send the updated post to the client side
+*/
 
 export const deletePost = async (req,res) => {
    const {id} = req.params;
@@ -83,6 +106,13 @@ export const deletePost = async (req,res) => {
 
    res.json({message: 'Post deleted successfully'})
 }
+
+/*
+delete post will first get the id from the request parameters,
+check if the id is valid in our mongoose schema,
+delete the post with the id,
+send a message to the client side
+*/
 
 export const likePost = async (req, res) => {
    const {id} = req.params
@@ -106,6 +136,18 @@ export const likePost = async (req, res) => {
     res.json(updatedPost);
 }
 
+/*
+like post will first get the id from the request parameters,
+check if the id is valid in our mongoose schema,
+check if the user is authenticated,
+find the post by the id,
+find the index of the user id in the post likes array,
+if the index is -1, then push the user id to the post likes array,
+else, dislike the post by filtering the user id from the post likes array,
+update the post with the id and the post from the request body,
+send the updated post to the client side
+*/
+
 export const commentPost = async (req, res) => {
    const {id} = req.params;
    const {value} = req.body;
@@ -118,6 +160,15 @@ export const commentPost = async (req, res) => {
 
    res.json(updatedPost)
 }
+/*
+comment post will first get the id from the request parameters,
+get the comment from the request body,
+find the post by the id,
+push the comment to the post comments array,
+update the post with the id and the post from the request body,
+send the updated post to the client side
+*/
+
 
 export const deleteComment = async (req,res) => {
    //console.log(req)
@@ -134,4 +185,13 @@ export const deleteComment = async (req,res) => {
   res.json(updatedPost)
 
 }
+/*
+delete comment will first get the id from the request parameters,
+get the comment from the request body,
+find the post by the id,
+find the index of the comment in the post comments array,
+splice the comment from the post comments array,
+update the post with the id and the post from the request body,
+send the updated post to the client side
+*/
 

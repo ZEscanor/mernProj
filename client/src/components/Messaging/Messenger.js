@@ -11,10 +11,10 @@ import SendMessageComponent from './SendMessageComponent';
 
 
 
-
+ // meesger component will display all the messages that the user has sent and received
 const Messenger = () => {
    const classes = useStyles();
-   const [messages, setMessages] = useState([]);
+   const [messages, setMessages] = useState([]); //this is the data we will be getting from the backend to display messages received and sent
    const [message, setMessage] = useState({
       title: '',
       message: '',
@@ -22,13 +22,13 @@ const Messenger = () => {
       createdAt: '',
       recipient
       : ''
-    });
-    const [currentMessage, setCurrentMessage] = useState({});
-    const [createMessageButton, setCreateMessageButton] = useState(false);
-    const [messageClicked, setMessageClicked] = useState(false);
-    const [toggleDeleteMode, setToggleDeleteMode] = useState(false);
+    });  //this is the data we will be sending to the backend when a new message is created
+    const [currentMessage, setCurrentMessage] = useState({}); //this will be the current message that we are looking at
+    const [createMessageButton, setCreateMessageButton] = useState(false); //this will be a boolean that will determine if we are in create message mode or not
+    const [messageClicked, setMessageClicked] = useState(false); // a boolean to determine what state we are in, we clicked a message so reset buttons and states
+    const [toggleDeleteMode, setToggleDeleteMode] = useState(false); // a boolean to determine if we are in delete mode or not, if clicked we are able to delete messages
 
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([]); //this will be the data we get from the backend to display all the users
 
    const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -49,17 +49,17 @@ const Messenger = () => {
       
       
       //history.push('/messenger');
-    }
+    } //this will be the function that will be called when we submit a new message
     const clear = () => { 
       setMessage({ title: '', message: '', creator: '', createdAt: '', recipient: '' });
-    }
+    }  //this will be the function that will clear the message form after we submit a new message
 
 
     const handleChange = (e) => {
 
       setMessage({ ...message, [e.target.name]: e.target.value, creator: user?.result?._id, createdAt: new Date().toISOString() });
-    }
-
+    } //this will be the function that will be called when we change the input fields in the message form
+ 
     const handleDelete = async(currMessage) => {
       
       setToggleDeleteMode(!toggleDeleteMode);
@@ -67,7 +67,7 @@ const Messenger = () => {
     const data =  await dispatch(deleteMessage(user?.result?._id, messages[currMessage]));
     setMessageClicked(false);
     return data;
-    }
+    } //this will be the function that will be called when we click the delete button, it will delete the message from the database
 
     const handleButtons = (input) => {
       if (input === 'create') {
@@ -87,7 +87,7 @@ const Messenger = () => {
       else if (input === 'delete') {
         setToggleDeleteMode(!toggleDeleteMode);
       }
-    }
+    } // we handle our buttons here, we will be able to create a new message, go back to the messages page, and delete messages
 
     
 
@@ -104,7 +104,9 @@ const Messenger = () => {
     
         fetchData();
       }
-    }, [dispatch, user?.token, user?.result?._id, getUsers, getMessages, messages]);
+    }, [dispatch, user?.token, user?.result?._id, getUsers, getMessages, messages]); 
+    //this will be the function that will be called when the component mounts, it will get all the users and messages from the backend
+    // if any field changes it will remount the component
 
 
     

@@ -22,3 +22,7 @@ export const LOGOUT = "LOGOUT";
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
+
+
+// yes its our glorious Constants file. That's right, COOOONSTANTS! 
+// we use this in our actions and reducers

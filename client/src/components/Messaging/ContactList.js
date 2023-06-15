@@ -10,7 +10,7 @@ import { Avatar } from '@material-ui/core';
 
 
 
-
+ // this component is a contact list for users that can be messaged
 const ContactList = ({users, message, setMessage}) => {
 
     return(

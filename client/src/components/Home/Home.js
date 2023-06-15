@@ -13,29 +13,31 @@ import { getPostsBySearch } from '../../actions/actionPost';
 
 function useQuery(){
   return new URLSearchParams(useLocation().search);
-}
+} //this function will get the query string from the url
 
+// this component will display the home page of the app, it will display the posts and the form to create a new post
 const Home = () => {
 
-    const [currentId, setCurrentId] = useState(null);
+    const [currentId, setCurrentId] = useState(null); // this state will be used to determine if we are in editing mode or not
   
     const dispatch = useDispatch(); // dispatch an action
-    const query = useQuery();
-    const history = useHistory();
-    const page = query.get('page') || 1
-    const searchQuery = query.get('searchQuery')
-    const classes = useStyles();
-    const [search, setSearch] = useState('')
-    const [tags,setTags] = useState([])
-    const [open, setOpen] = useState(false);
+    const query = useQuery(); // get the query string from the url
+    const history = useHistory(); // get the history of the app
+    const page = query.get('page') || 1 // get the page number from the query string, if there is no page number, set it to page 1
+    const searchQuery = query.get('searchQuery') // get the search query from the query string
+    const classes = useStyles(); 
+    const [search, setSearch] = useState('') // if text is typed into the search bar, set the search state to the text
+    const [tags,setTags] = useState([])  // same as above but for tags
+    const [open, setOpen] = useState(false); // this state will be used to determine if the tooltip is open or not
 
     const handleTooltipClose = () => {
       setOpen(false);
-    };
+    }; 
   
     const handleTooltipOpen = () => {
       setOpen(true);
     };
+    //basically added tooltips for more readability and better user experience
   //console.log(query.get('page') || 1, "hello")
     // useEffect(()=>{
     // dispatch(getPosts());
@@ -45,7 +47,7 @@ const Home = () => {
       if(search.trim() || tags){
         dispatch(getPostsBySearch({search, tags: tags.join(',')}));
         history.push(`/posts/search?searchQuery=${search || "none"}&tags=${tags.join(',')}`)
-      }
+      }  // if the search bar is not empty or the tags array is not empty, dispatch the getPostsBySearch action and push the search query to the url
       else{
         history.push('/')
       }
@@ -53,11 +55,12 @@ const Home = () => {
     const handleKeyPress = (e) => {
       if(e.keyCode === 13){
          searchPost()
-      }// enter key is keycode 13
+      }// if the enter key is pressed, call the searchPost function
     }
 
-    const handleAdd = (tag) => setTags([...tags, tag]);
-    const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete))
+    const handleAdd = (tag) => setTags([...tags, tag]); // if a tag is added, add it to the tags array
+    const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete)) // if a tag is deleted, remove it from the tags array
+    // Note: the tags array must be populated first in order to search by tags, by pressing enter
   return (
     <Grow in>
         <Container maxWidth='xl'>
@@ -82,7 +85,7 @@ const Home = () => {
               <ClickAwayListener onClickAway={handleTooltipClose}>
                <Tooltip  onClose={handleTooltipClose}
                 open={open}
-                disableFocusListener
+                disableFocusListener 
                 disableHoverListener
                 disableTouchListener 
                 title="Input a Tag and press Enter before submitting"
@@ -106,7 +109,7 @@ const Home = () => {
                    <Pagination page={page}/>
               </Paper>
                )}
-           </Grid>
+           </Grid> 
           </Grid>
         </Container>
       </Grow>

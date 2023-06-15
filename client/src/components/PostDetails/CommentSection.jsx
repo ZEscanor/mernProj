@@ -7,7 +7,7 @@ import { Redirect} from "react-router-dom";
 
 import useStyles from "./styles";
 
-
+// this component is for the comment section of the post
 const CommentSection = ({post}) => {
     //console.log("COMMENTO",post);
     const classes = useStyles();

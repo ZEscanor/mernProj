@@ -15,32 +15,32 @@ const schema = yup.object().shape({
    tags: yup.string().required(),
   
    
-  })
+  }) //yup validation for our form, this acts as more of a second layer to ensure valid input
 
  
 const Form = ({currentId, setCurrentId}) => {
   const [postData, setPostData] = useState({
      title: '', message: '', tags: '',
     selectedFile: ''
-  })
+  })  //this is the data we will be sending to the backend when a new post is created
   
-  const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null));
+  const post = useSelector((state) => (currentId ? state.posts.posts.find((p) => p._id === currentId) : null)); //this useSelector will get the current post that we are editing
   const dispatch = useDispatch();   
   const classes = useStyles();
-  const user = JSON.parse(localStorage.getItem("profile"))
+  const user = JSON.parse(localStorage.getItem("profile")) // get the user from local storage
   const history = useHistory();
   
 
   useEffect(()=>{
   if(post){setPostData(post)}
-}, [currentId])
+}, [currentId]) // if the currentId of a post changes, we are in editing mode, so we will set the post data to the post we are editing
 
 
 const clear = () => {
   setCurrentId(null);
   setPostData({title: '', message: '', tags: '',
   selectedFile: ''})
-}
+}  //this function will clear the form after a post is submitted or edited
 
 
   const handleSubmit = async (e) => {
@@ -49,11 +49,11 @@ const clear = () => {
 
    if(currentId){
     dispatch(updatePost(currentId, {...postData, name:user?.result?.name}))
-   }
+   } //if we are in editing mode and the user submits, we will dispatch the updatePost action to update the post
    else{
    
    dispatch(createPost({...postData, name:user?.result?.name}));
-   }
+   } //if we are not in editing mode and the user submits, we will dispatch the createPost action to create a new post
    clear();
    history.push("/");
   }
@@ -67,7 +67,7 @@ const clear = () => {
         </Typography>  
       </Paper>
     )
-  }
+  } //if the user is not signed in, we will display a message to the user to sign in first
 
   
   return (

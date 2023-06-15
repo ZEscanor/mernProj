@@ -12,7 +12,7 @@ import {useHistory} from "react-router-dom";
 import { deletePost, likePost } from '../../../actions/actionPost';
 
  
-
+// individual post component that renders each post from an array of posts received in the POSTS component
 const Post = ({post, setCurrentId}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const Post = ({post, setCurrentId}) => {
    return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
  };
   
- const openPost = () => history.push(`/posts/${post._id}`)
+ const openPost = () => history.push(`/posts/${post._id}`) // when a post is clicked, we will redirect the user to the post details page
    
   return (
     <Card className={classes.card} raised elevation={6}>

@@ -25,32 +25,32 @@ const schema = yup.object().shape({
   firstName: yup.string().max(10, "First Name should be no longer than 10 characters").required().matches(
     /^([A-Za-z]*)$/gi,
         'First Name can only contain alphanumeric letters.'
-    ),
+    ), //regex for only letters that are alphanumeric, no spaces or special characters allowed and the max length is 10
   lastName: yup.string().max(10, "Last Name should be no longer than 10 characters").required().matches(
     /^([A-Za-z]*)$/gi,
         'Last Name can only contain alphanumeric letters.'
-    ),
-  email: yup.string().email().required(),
-  password:yup.string("No password provided!!").min(6,"Minimum of 6 characters"),
-  confirmPassword:yup.string().oneOf([yup.ref('password'),null], 'Passwords Must match')
+    ), // same as above
+  email: yup.string().email().required(), // yup will just check if a valid email is entered
+  password:yup.string("No password provided!!").min(6,"Minimum of 6 characters"), // yup will check if password is at least 6 characters
+  confirmPassword:yup.string().oneOf([yup.ref('password'),null], 'Passwords Must match') // yup will check if password and confirm password match
 
-})
+})   //schema for creating a new user account validation using yup
 
 const Auth = () => {
     const state = null;
-    const classes = useStyles();
-    const [isSigned, setIsSigned] = useState(false);
-    const [showpass, SetShowPass] = useState(false);
-    const [formData,setFormData] = useState(initalState);
-    let errArray = []
-    const [errors,setErrors] = useState([])
-    const dispatch = useDispatch();
-    const history = useHistory();
+    const classes = useStyles(); 
+    const [isSigned, setIsSigned] = useState(false); // if isSigned is false then we are signing in, if true we are signing up
+    const [showpass, SetShowPass] = useState(false); // if showpass is false then we are hiding the password, if true we are showing the password
+    const [formData,setFormData] = useState(initalState); // formData is the data we are sending to the backend when a new user is created, it will check against the schema above
+    let errArray = [] // this is an array that will hold all the errors that are returned from yup
+    const [errors,setErrors] = useState([]) // this error array will be used to display the errors to the user
+    const dispatch = useDispatch(); // this is used to dispatch actions to the redux store
+    const history = useHistory(); // we will keep track of the history of the user so we can redirect them to the home page after they sign in
 
    const clear = () => {
    
     errArray = []
-  }
+  } // this function will clear the error array so we can display new errors to the user
  // useEffect(() => console.log("re-render because x changed:", errors), [errors])
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,7 +59,7 @@ const Auth = () => {
 
         const isFormValid = await schema.isValid(formData, {
           abortEarly: false
-        })
+        })  // where are yup schema is called
 
         //console.log(isFormValid)
         if(isSigned){
@@ -67,7 +67,7 @@ const Auth = () => {
           console.log("Form ok")
           dispatch(signup(formData,history))
          
-        }
+        } // if the form is valid then we will dispatch the signup action to the redux store
         else{
     
           clear()
@@ -86,12 +86,12 @@ const Auth = () => {
             setErrors(errArray) // Use set here because setstate triggers a page reload giving our error check message
           })
           //console.log(errors, errArray, "UG")
-        }
+        }  // if the form is not valid then we will use yup to validate the form and return the errors to the user
       } 
      else{
           //console.log("we signing in")
           dispatch(signin(formData,history))
-        }
+        }  // if the user already has an account and wants to signin we will do this action
     };
 
     
@@ -99,17 +99,17 @@ const Auth = () => {
 
     const handleChange = (e) => {
      setFormData({...formData, [e.target.name]:e.target.value})
-    };
+    };  
     const handleShowPassword = () => {
         SetShowPass((prevShowPass) => !prevShowPass)
 
-    };
+    };  // this function will switch between showing and hiding the password
     const switchMode = () => {
        setIsSigned(!isSigned)
        handleShowPassword(false);
      
-    };
-
+    }; // switch between signin and signup pages 
+    
     const googleSuccess = async (res) => {
        const decoded = jwt_decode(res.credential)
        //console.log("decoded",decoded)// everything under name,picture, email
@@ -133,11 +133,11 @@ const Auth = () => {
         console.log(error)
        }
        // await axios.post('http://localhost:3000/api/auth, user)
-    };
+    };  // this function will be called if the user successfully signs in with google
 
     const googleFailure = (error) => {
       console.log(error,"Sorry that didnt work try again")
-    };
+    };  // this function will be called if the user fails to sign in with google
   return (
     <GoogleOAuthProvider clientId="271275385255-4uffobja86j8kcrfprdhhutucc1fe2j6.apps.googleusercontent.com">
     <Container component="main" maxWidth="xs">

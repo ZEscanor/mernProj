@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import useStyles from './DropdownStyle';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 //path:'/admin', innerText:"Admin Dashboard *WIP*"}
+// a component that will be used to create a dropdown menu for the user to access their settings
 const menuPaths = [,{path:'/messages', innerText:"Check Messages"},{path:'/users', innerText:"Settings"}, {path:'/working', innerText:"PlaceHolder"}]
 const Dropdown = ({name,src, dropIsFalse}) => {
     const classes = useStyles();

@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { getPosts } from "../actions/actionPost";
 import useStyles from "./styles"
 
+
+// Will be our pagination component, TLDR if you have more than 8 posts, it will paginate another page creating a better user experience 
 const Paginate = ({page}) => {
    const classes = useStyles();
    const dispatch = useDispatch();

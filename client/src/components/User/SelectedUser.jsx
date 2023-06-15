@@ -10,6 +10,8 @@ import {DataGrid } from "@mui/x-data-grid";
 import useStyles from './styles';
 import { mergeClasses } from '@material-ui/styles';
 
+
+// WIP page for displaying user info, deciding what to do with it
 const SelectedUser = ({selectedUse
 
 }) => {

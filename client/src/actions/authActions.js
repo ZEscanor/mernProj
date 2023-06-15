@@ -13,7 +13,7 @@ export const signin = (formData, history) => async (dispatch) => {
     catch(error){
         console.log(error)
     }
-};
+};  // function that will sign in a user and dispatch it to our reducer
 
 export const signup = (formData,history) => async (dispatch) => {
 
@@ -25,6 +25,9 @@ export const signup = (formData,history) => async (dispatch) => {
     catch(error){
         console.log(error)
     }
-}
+}   // function that will sign up a user and dispatch it to our reducer
+
+
+// no google user data is saved in our database, only the user's name when they make a post etc.
 
 

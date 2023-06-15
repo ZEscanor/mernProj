@@ -33,3 +33,5 @@ export const getMessages = (id) => API.get(`/user/${id}/messages`);
 export const sendMessage = (id,message) => API.post(`/user/${id}`, message);
 export const deleteMessage = (id, message) => API.patch(`/user/${id}/deleteMessage`, message);
 
+// all of these functions are explained in our actions/actionPost.js file
+// only difference here is that we are using axios and sending it to our deployed backend for real.

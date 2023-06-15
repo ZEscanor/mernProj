@@ -11,3 +11,6 @@ const classes = useStyles();
 }
 
 export default routeUndefined
+
+
+// this is our 404 page. It is a simple component that displays a message if the user tries to go to a path that doesnt exist.

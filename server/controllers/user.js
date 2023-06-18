@@ -39,7 +39,7 @@ export const editUser = async (req,res) => {
     const {id} =req.params
     const user = req.body
 
-    //console.log(user, "user")
+    //console.log(user,req.body, "user")
     
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("No user with the current Id");
 

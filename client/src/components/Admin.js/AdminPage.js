@@ -7,6 +7,27 @@ import {DataGrid } from "@mui/x-data-grid";
 import Alert from '@mui/material/Alert';
 
 
+const columns = [
+  { field: 'id', headerName: 'ID', width: 200 },
+  {
+    field: 'name',
+    headerName: 'Name',
+    width: 170,
+  },
+  {
+    field: 'email',
+    headerName: 'Email',
+    width: 170
+  },
+  {
+    field: 'role',
+    headerName: 'Role',
+    type: 'string',
+    width: 170,
+    editable: true,
+
+  },
+]
 
  
 const AdminPage = () => {
@@ -35,40 +56,34 @@ const AdminPage = () => {
   } // this function will intialize all users in our db and put it into a datagrid
 
   
-  const handleRowClick = async (params) => {
+  const handleRowClick = (params, e) => {
+    //e.persist();
+    console.log(params, "params", params.value)
 
-    //  const {id} = params?.row
-    //  const {role} = params?.row
-    //  const {name} = params?.row
-    //  const {email} = params?.row
-    //  const payload = {id,name,role ,email}
-    //  console.log(payload)
-    
-    //   setMessage(`User ${payload.name} ${payload.role} selected`)
-    //   return payload
     const { id, role, name, email } = params?.row;
-    const payload = { id, name, role, email };
-    console.log(payload);
+    let payload = { id, name, role, email };
+    payload={...payload, role: params.value}
+    console.log(payload, "payload");
   
-    setMessage(`User ${payload.name} ${payload.role} selected`);
-    setCurrentClickedUser(params?.row);
-    setCurrentPayload(payload);
+     setMessage(`User ${payload.name} ${payload.role} selected`);
+     setCurrentClickedUser(params?.row);
+     setCurrentPayload(payload);
+     setMessage(`User ${payload.name} ${payload.role} changed to ${payload.role}`);
+    // setUser(payload);
 
 
-  } // clicking on a row will set current user for changes
-  const setUser = async () => {
-    //   const para = await handleRowClick()
-    //     console.log(para , "params")
-    // if (para.id != null && para.role != null) {
-    
-    //   const data = await dispatch(editUser(para.id, para.role))
-    //   //console.log(data)
-    //   setMessage(`User ${data.name} updated to ${data.role}`)
-    //   setStateUser(data)
+  } // clicking on a row will set current user for changes\
+  
 
-    //   return data
-    if (currentPayload?.id != null && currentPayload?.role != null) {
-      const data = await dispatch(editUser(currentPayload.id, currentPayload.role));
+  
+  const setUser = async (
+  
+  ) => {
+    setMessage(`UseR ${currentPayload.name} ${currentClickedUser.role} updated to ${currentPayload.role}`);
+    console.log(currentPayload, "currentPayload");
+    if (currentPayload?.id !== null && currentPayload?.role !== null) {
+      const data = await dispatch(editUser(currentPayload.id, currentPayload));
+      console.log(data);
       setMessage(`User ${data.name} updated to ${data.role}`);
       setStateUser(data);
       return data;
@@ -83,26 +98,7 @@ const AdminPage = () => {
 
   
    
-      const columns = [
-        { field: 'id', headerName: 'ID', width: 200 },
-        {
-          field: 'name',
-          headerName: 'Name',
-          width: 170,
-        },
-        {
-          field: 'email',
-          headerName: 'Email',
-          width: 170
-        },
-        {
-          field: 'role',
-          headerName: 'Role',
-          type: 'string',
-          width: 170,
-          editable: true,
-        },
-    ]
+      
 
   return (
     
@@ -145,24 +141,28 @@ const AdminPage = () => {
         rows={rows}
         columns={columns}
         rowsPerPageOptions={[10]}
-        onRowClick={handleRowClick}
+        onCellEditCommit={handleRowClick}
+        //onRowEditStop={handleRowClick}
+    
         autoPageSize= {true}
         disableSelectionOnClick
       
       />
       
        <button type='submit'  
-       onClick={setUser}
-       style={{"background-color": "#4CAF50",
-  "border": "none",
-  "color": "white",
-  'padding': '15px 32px',
-  'text-align': 'center',
-  'text-decoration': 'none',
-  'display': 'inline-block',
-  'font-size': '16px',
-  'margin': '4px 2px',
- ' cursor':'pointer'}}>
+        onClick={setUser}
+       style={{
+            backgroundColor: "white",
+            color: "black",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "none",
+            cursor: "pointer",
+            marginTop: "20px",
+            marginBottom: "20px",
+            marginLeft: "20px",
+            marginRight: "20px",
+       }}>
            Push Changes
        </button>
       </Box>

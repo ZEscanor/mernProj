@@ -1,7 +1,7 @@
 Lifestyle is a full stack web application that allows users to create and store their memories in one place. It allows users to easily customize posts, comment/like on other posts, send private messages, and view all of their memories in one organized place.
 
  
- ** This app is a WIP **
+
  
 
 
